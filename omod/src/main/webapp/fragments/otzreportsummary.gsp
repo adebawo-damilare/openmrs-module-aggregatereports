@@ -473,11 +473,11 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
             
             /////////////////////////////////////////////////here we go/////////////////////////////////////////////////
             const beginDate = new Date(startDate);
-            console.log("begindate before 2020", beginDate);
-            if (beginDate.getFullYear() < 2020) {
-                beginDate.setFullYear(2020, 0, 1);
+            console.log("begindate before 2019", beginDate);
+            if (beginDate.getFullYear() < 2019) {
+                beginDate.setFullYear(2019, 0, 1);
             }
-            console.log("begindate before 2020 reset", beginDate);
+            console.log("begindate before 2019 reset", beginDate);
             const finishDate = new Date(endDate);
 
 
