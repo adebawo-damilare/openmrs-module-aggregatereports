@@ -278,9 +278,10 @@ public class PatientDao {
 			stmt = con.prepareStatement(query);
 			stmt.setString(i++, property);
 			rs = stmt.executeQuery();
-			rs.next();
-			
-			return rs.getString("property_value");
+			if (rs.next()) {
+				return rs.getString("property_value");
+			}
+			return "";
 			
 		}
 		catch (SQLException ex) {
