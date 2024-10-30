@@ -356,4 +356,29 @@
                  endDelimiter=";"/>                   
     </changeSet>-->
     
+    <changeSet id="org.openmrs.module.dataquality-v1.0-6" author="Adebawo_otzplus_date">
+        <addColumn tableName="dqr_meta">
+            <column name="otzplus_date" type="DATETIME">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="ref-dqr_last_analysis_date" author="Adebawo_otz_ref" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM `global_property` WHERE `property` = 'dqr_last_analysis_date';
+            </sqlCheck>
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM `global_property` WHERE `property` = 'dqr_last_txcurr';
+            </sqlCheck>
+        </preConditions>
+
+        <sql>
+            DELETE FROM `global_property` WHERE (`property` = 'dqr_last_analysis_date');
+            DELETE FROM `global_property` WHERE (`property` = 'dqr_last_txcurr');
+        </sql>
+    </changeSet>
+
+    
 </databaseChangeLog>
