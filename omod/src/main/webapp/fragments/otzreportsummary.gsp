@@ -1465,7 +1465,7 @@ newContent3 = `
             jq(".loadingViewButton").attr("disabled", true);
             
            
-            console.log("#####################################################"+ageTyp);
+            //useful here
             myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getAllEnrolledInOTZ") }').then(function(response){
                 
                 var data = JSON.parse(response);
@@ -1529,7 +1529,7 @@ newContent3 = `
                 //lets set some cards
                 //setCardValues(data);;
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithScheduledPickup6MonthsBefore") }');
             })
             .then(function(response){
@@ -1555,7 +1555,7 @@ newContent3 = `
                 
                 
                 var total = new Number(male1014) + new Number(male1519) + new Number(male2024) + new Number(maleabove24) + new Number(female1014) + new Number(female1519)  + new Number(female2024) + new Number(femaleabove24) ;
-                jq("#totalEnrolledWithApp6MtPriorTotal_"+currMonth).html(total)
+                jq("#totalEnrolledWithApp6MtPriorTotal_"+currMonth).html(total)//useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWhoKeptScheduledPickup6MonthsBefore") }');
             })
             .then(function(response){
@@ -1582,7 +1582,7 @@ newContent3 = `
                 jq("#totalEnrolledKeptAppPriorTotal_"+currMonth).html(total)
                 
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithGoodAdhScore6MonthsBefore") }');
             })
             
@@ -1609,7 +1609,7 @@ newContent3 = `
                 
                 var total = new Number(male1014) + new Number(male1519) + new Number(male2024) + new Number(maleabove24) + new Number(female1014) + new Number(female1519)  + new Number(female2024) + new Number(femaleabove24) ;
                 jq("#totalEnrolledGoodAdhPriorTotal_"+currMonth).html(total)
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithVL12MonthsBefore") }');
             })
             
@@ -1637,7 +1637,7 @@ newContent3 = `
                 jq("#totalEnrolledBaselineResultTotal_"+currMonth).html(total)
                 
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithVL12MonthsBeforeAndBelow200") }');
             })
             
@@ -1665,7 +1665,7 @@ newContent3 = `
                 jq("#totalEnrolledBaselineResultBelow200Total_"+currMonth).html(total)
                 
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithVL12MonthsBeforeAndBtw200AND1000") }');
             })
             .then(function(response){
@@ -1690,7 +1690,7 @@ newContent3 = `
                 
                 var total = new Number(male1014) + new Number(male1519) + new Number(male2024) + new Number(maleabove24) + new Number(female1014) + new Number(female1519)  + new Number(female2024) + new Number(femaleabove24) ;
                 jq("#totalEnrolledBaselineResult200To1000Total_"+currMonth).html(total)
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithVL12MonthsBeforeAndAboveOrEqual1000") }');
             })
             .then(function(response){
@@ -1717,7 +1717,7 @@ newContent3 = `
                 jq("#totalEnrolledBaselineResultAbove1000Total_"+currMonth).html(total)
                 
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithVL6MonthsBefore") }');
             })
 
@@ -1745,7 +1745,7 @@ newContent3 = `
                 var total = new Number(male1014) + new Number(male1519) + new Number(male2024) + new Number(maleabove24) + new Number(female1014) + new Number(female1519)  + new Number(female2024) + new Number(femaleabove24) ;
                 jq("#totalEnrolledBaselineResult6MtTotal_"+currMonth).html(total)
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithVL6MonthsBeforeAndBelow200") }');
             })
             
@@ -1772,7 +1772,7 @@ newContent3 = `
                 var total = new Number(male1014) + new Number(male1519) + new Number(male2024) + new Number(maleabove24) + new Number(female1014) + new Number(female1519)  + new Number(female2024) + new Number(femaleabove24) ;
                 jq("#totalEnrolledBaselineResult6MtBelow200Total_"+currMonth).html(total)
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithVL6MonthsBeforeAndBtw200AND1000") }');
             })
             
@@ -1800,7 +1800,7 @@ newContent3 = `
                 var total = new Number(male1014) + new Number(male1519) + new Number(male2024) + new Number(maleabove24) + new Number(female1014) + new Number(female1519)  + new Number(female2024) + new Number(femaleabove24) ;
                 jq("#totalEnrolledBaselineResult6MtBt200To1000Total_"+currMonth).html(total)
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithVL6MonthsBeforeAndAboveOrEqual1000") }');
             })
             
@@ -1828,7 +1828,7 @@ newContent3 = `
                 jq("#totalEnrolledBaselineResult6MtBelow1000Gt1000Total_"+currMonth).html(total)
                 
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEligibleForMonthZeroVL") }');
             })
             .then(function(response){
@@ -1855,7 +1855,7 @@ newContent3 = `
                 jq("#totalEnrolledEligibleMtZTotal_"+currMonth).html(total)
                 
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEligibleForMonthZeroVLWithSampleCollectedAtEnrollment") }');
             })
             .then(function(response){
@@ -1882,7 +1882,7 @@ newContent3 = `
                 jq("#totalEnrolledEligibleMtZSampleTotal_"+currMonth).html(total)
                 
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalWithBaseLineVLBelow1000AndMonthZeroVlBelow200") }');
             })
             .then(function(response){
@@ -1909,7 +1909,7 @@ newContent3 = `
                 jq("#totalEnrolledB1000MZ200Total_"+currMonth).html(total)
                 
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalWithBaseLineVLBelow1000AndMonthZeroVlAbove200") }');
             })
             .then(function(response){
@@ -1937,7 +1937,7 @@ newContent3 = `
                 jq("#totalEnrolledB1000MZ200To1000Total_"+currMonth).html(total)
                 
                 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalWithBaseLineVLBelow1000AndMonthZeroVlAbove1000") }');
             })
 
@@ -3100,7 +3100,7 @@ newContent3 = `
                 //datatableObj.destroy();
                 //datatableObj.draw();
                 datatableObj.rows().invalidate().draw()
-               
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate}, "otz/getTxCurr.action");
             }).then(function(response){
 
@@ -3156,7 +3156,7 @@ newContent3 = `
                 jq("#AYPLHIVCurrentF20To24_"+currMonth).html(datalengthCurAYPLIVF20To24)
              
 
-                
+                //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("dnt") }');
             }).then(function(response){
             var data = JSON.parse(response);
