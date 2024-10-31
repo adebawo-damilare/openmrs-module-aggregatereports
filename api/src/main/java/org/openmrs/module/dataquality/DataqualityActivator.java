@@ -73,7 +73,7 @@ public class DataqualityActivator extends BaseModuleActivator {
             Database.initConnection();
             //sets set sql mode to no substitution 
             Database.setSQLMode("NO_ENGINE_SUBSTITUTION");
-            System.out.println("started data quality module");
+            //System.out.println("started data quality module");
 
             log.info("Started Dataquality");
             
@@ -126,8 +126,8 @@ public class DataqualityActivator extends BaseModuleActivator {
                             
                             
                             
-                            System.out.println("Last analysis Date" + lastAnalysisDate);
-                            //System.out.println("txcurrgrabzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz " + txCurrGrabs);
+                            //System.out.println("Last analysis Date" + lastAnalysisDate);
+                            ////System.out.println("txcurrgrabzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz " + txCurrGrabs);
                             if(lastAnalysisDate == null || lastAnalysisDate.equalsIgnoreCase(""))
                             {
                                 lastAnalysisDate = "1990-01-01";
@@ -138,7 +138,7 @@ public class DataqualityActivator extends BaseModuleActivator {
                             }
                             if(txCurrGrabs == null || txCurrGrabs.equalsIgnoreCase(""))
                             {
-                                System.out.println("Here for txcurrgrabzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" + txCurrGrabs);
+                                //System.out.println("Here for txcurrgrabzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" + txCurrGrabs);
                                 //allTxCurrInitL.addAll(dao.getAllCurrs());
                                 //dao.saveAllCurrs(allTxCurrInitL);
                                 txCurrGrabs = "1990-01-01";
@@ -148,11 +148,11 @@ public class DataqualityActivator extends BaseModuleActivator {
                                 
                             }
                            // lastAnalysisDate = "1990-01-01";
-                            //System.out.println("Last analysis Date" + lastAnalysisDate);
-                            //System.out.println("Task Timer on Fixed Rate");
+                            ////System.out.println("Last analysis Date" + lastAnalysisDate);
+                            ////System.out.println("Task Timer on Fixed Rate");
                             //get patient count
                             int totalPatients = dao.getTotalPatients();
-                           // System.out.println("total patient count" + totalPatients);
+                           // //System.out.println("total patient count" + totalPatients);
                             int limit = 1000;
                             int totalPages = totalPatients / limit;
                             if(totalPages == 0)
@@ -167,7 +167,7 @@ public class DataqualityActivator extends BaseModuleActivator {
                                     List<Map<String,String>> allPatients = dao.getAllPatients(limit, offset, lastAnalysisDate);
 
                                     //loop through the patients and save encounters in flat tables
-                                    //System.out.println("PPPPPPPPPPPPPPPPPPPPPPPatient SIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIzeEEEEEEEEEEEEE"+allPatients.size());
+                                    ////System.out.println("PPPPPPPPPPPPPPPPPPPPPPPatient SIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIzeEEEEEEEEEEEEE"+allPatients.size());
                                     for(int j=0; j<allPatients.size(); j++)
                                     {
                                         int patientId = Integer.parseInt(allPatients.get(j).get("patient_id"));
@@ -199,7 +199,7 @@ public class DataqualityActivator extends BaseModuleActivator {
                                     allClientIntakeEncounters.clear();
                                     allIPTEncounters.clear();
                                     //allTxCurrInitL.clear();
-                                    //System.out.println("completed cycle " + i + "out of" + (totalPages - 1));
+                                    ////System.out.println("completed cycle " + i + "out of" + (totalPages - 1));
                             }
                             
                             
@@ -209,7 +209,7 @@ public class DataqualityActivator extends BaseModuleActivator {
                             String now = today.toString("yyyy'-'MM'-'dd HH:mm");
                             Context.getAdministrationService().updateGlobalProperty("dqr_last_analysis_date", now);
                             Context.closeSession();
-                            //System.out.println("completed");
+                            ////System.out.println("completed");
                     };
 		};
 		t.scheduleAtFixedRate(tt, 5000, 10000);

@@ -45,7 +45,7 @@ public class OtzreportsummaryFragmentController {
 		try {
 			
 			/*URL url = this.getClass().getResource("otz_info.json");
-			System.out.println(url.getPath());
+			//System.out.println(url.getPath());
 			File f = new File(url.getPath());
 			JSONObject obj = new JSONObject(FileUtils.readFileToString(f));
 			
@@ -76,7 +76,7 @@ public class OtzreportsummaryFragmentController {
             DateTime startDateTime = new DateTime(request.getParameter("startDate"));
             DateTime endDateTime = new DateTime(request.getParameter("endDate"));
             String ageType = request.getParameter("ageType");
-            System.out.println(ageType+"in fragmentController");
+            //System.out.println(ageType+"in fragmentController");
             //Database.initConnection();
 
             String startDate = startDateTime.toString("yyyy'-'MM'-'dd");
@@ -192,7 +192,7 @@ public class OtzreportsummaryFragmentController {
             DateTime endDateTime = new DateTime(request.getParameter("endDate"));             String ageType = request.getParameter("ageType");
             //Database.initConnection();
 
-            System.out.println("start date time"+startDateTime);
+            //System.out.println("start date time"+startDateTime);
             String startDate = startDateTime.toString("yyyy'-'MM'-'dd");
             String endDate = endDateTime.toString("yyyy'-'MM'-'dd");
             
@@ -4357,7 +4357,7 @@ public class OtzreportsummaryFragmentController {
             DateTime endDateTime = new DateTime(request.getParameter("endDate"));
             String ageType = request.getParameter("ageType");
             DateTime sixMonthsAgo = endDateTime.minusMonths(6);
-            System.out.println(ageType+"in getTotalAYPLHIVEnrolledInOTZWhoComplete7");
+            //System.out.println(ageType+"in getTotalAYPLHIVEnrolledInOTZWhoComplete7");
             //Database.initConnection();
 
             
@@ -4692,8 +4692,8 @@ public class OtzreportsummaryFragmentController {
 	        dataMap.put("female15To19",  female15To19+"");
 	        dataMap.put("female20To24",  female20To24+""); dataMap.put("femaleabove24",  femaleabove24+"");
                 dataMap.put("femaleabove24",  femaleabove24+"");
-                System.out.println("From OTZ Frag");
-                System.out.println(dataMap);
+                //System.out.println("From OTZ Frag");
+                //System.out.println(dataMap);
 	        //dataMap.put("totalAdultsTestedPositive",  adultsTestedPositive+"");
 	        return new JSONObject(dataMap).toString();
 
@@ -5220,7 +5220,7 @@ public class OtzreportsummaryFragmentController {
                 
                 JSONObject quarters = Misc.getQuartersBetweenDates(startDate, endDate);
                 
-                System.out.println("transferred "+allPatientsTransferred.size());
+                //System.out.println("transferred "+allPatientsTransferred.size());
                 
                 
                 Map<String, Object> data = new HashMap<>();
@@ -5232,7 +5232,7 @@ public class OtzreportsummaryFragmentController {
                 data.put("allPatientsDied", allPatientsDied);
                 data.put("allPatientsOptedOut", allPatientsOptedOut);
 		String json = new Gson().toJson(data);
-		         // System.out.println("json++++++++++++++++++++++++++"+json);
+		         // //System.out.println("json++++++++++++++++++++++++++"+json);
 		//return "hello";
 		return json;
 		
@@ -5350,7 +5350,7 @@ public class OtzreportsummaryFragmentController {
                         if(monthsBetween >= 6 ) {
                         	patientsEligible.add(allPatients.get(i));//once they have been on ART for up to six months before the month of investigation
                         }
-                        //System.out.println(monthsBetween+"---"+j);
+                        ////System.out.println(monthsBetween+"---"+j);
                         
                         
                         if(monthsBetweenExpectedAndActual == 0  && newSampleCollectionDate != null)//due to data entry errors, there are cases where a patient has vl result but no sample collection date. So we need to also check for sample collection date too
@@ -5381,7 +5381,7 @@ public class OtzreportsummaryFragmentController {
                         /*long monthsBetween = ChronoUnit.MONTHS.between(
                                 LocalDate.parse(allPatients.get(i).getEnrollmentDate()).withDayOfMonth(1),
                                 LocalDate.parse(allPatients.get(i).getSampleCollectionDate()).withDayOfMonth(1));*/
-                       // System.out.println(monthsBetween); //3
+                       // //System.out.println(monthsBetween); //3
 
                         //check if there is a test is within the past 6 months
                         //if(monthsBetweenExpectedAndActual >= 0 && monthsBetweenExpectedAndActual <=6)

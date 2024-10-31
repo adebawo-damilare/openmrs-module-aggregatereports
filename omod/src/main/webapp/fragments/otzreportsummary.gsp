@@ -289,13 +289,13 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
       var startDate = "";
       var endDate = "";
       var ageTyp="enrola";
-      console.log("log on load")
-      console.log(${formattedMonthLength})
+      //console.log("log on load")
+      //console.log(${formattedMonthLength})
       var formattedMonthLength = ${formattedMonthLength};
-      console.log("created")
-      console.log(formattedMonthLength)
-      console.log("from groovy")
-      console.log(${formattedMonthLength})
+      //console.log("created")
+      //console.log(formattedMonthLength)
+      //console.log("from groovy")
+      //console.log(${formattedMonthLength})
       var initialDate = "";
       var indicatorDescription = {};
 
@@ -335,7 +335,7 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
             //quarterly
             //dateRange
             //if(selVal=='monthly'){
-            //    console.log("Monthly selected");
+            //    //console.log("Monthly selected");
             //}
             
             
@@ -346,7 +346,7 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
             if(selVal=='quarterlycy'){jq(".cohortDesc").html("Search by Quarterly Cohort - Calendar Year");}
             if(selVal=='quarterly'){jq(".cohortDesc").html("Search by Quarterly Cohort - Fiscal Year");}
             if(selVal=='dateRange'){jq(".cohortDesc").html("Search by Cohort - Custom Date Range");}
-            console.log("Selected value"+selVal);
+            //console.log("Selected value"+selVal);
         });
         
         jq("#quartercy").change(function(){
@@ -356,7 +356,7 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
             if(selValu==2){jq(".cohortDesc").html("Search by Quarterly Cohort - Calendar Year (Apr - Jun)");}
             if(selValu==3){jq(".cohortDesc").html("Search by Quarterly Cohort - Calendar Year (Jul - Sept)");}
             if(selValu==4){jq(".cohortDesc").html("Search by Quarterly Cohort - Calendar Year (Oct - Dec)");}
-            console.log("Selected value"+selValu);
+            //console.log("Selected value"+selValu);
         });
         
         jq("#quarter").change(function(){
@@ -366,7 +366,7 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
             if(selValu==2){jq(".cohortDesc").html("Search by Quarterly Cohort - FY (Jan - Mar)");}
             if(selValu==3){jq(".cohortDesc").html("Search by Quarterly Cohort - FY (Apr - Jun)");}
             if(selValu==4){jq(".cohortDesc").html("Search by Quarterly Cohort - FY (Jul - Sept)");}
-            console.log("Selected value"+selValu);
+            //console.log("Selected value"+selValu);
         });
         
         
@@ -390,16 +390,16 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
             var quartercy = jq("#quartercy").val() ;
             var yearcy = jq("#quarterYearcy").val();
            
-            console.log("Quarter: "+quartercy);
-            console.log("Year: "+yearcy);
+            //console.log("Quarter: "+quartercy);
+            //console.log("Year: "+yearcy);
             
             var startDateEndDate = getDateRangeForQuartercy(quartercy, yearcy)
             
             startDate = startDateEndDate[0];
             endDate = startDateEndDate[1];
             
-            console.log("Start: "+startDate);
-            console.log("End: "+endDate);
+            //console.log("Start: "+startDate);
+            //console.log("End: "+endDate);
 
             
             getOTZData();
@@ -412,16 +412,16 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
             var quarter = jq("#quarter").val() ;
             var year = jq("#quarterYear").val();
            
-            console.log("Quarter: "+quarter);
-            console.log("Year: "+year);
+            //console.log("Quarter: "+quarter);
+            //console.log("Year: "+year);
             
             var startDateEndDate = getDateRangeForQuarter(quarter, year)
             
             startDate = startDateEndDate[0];
             endDate = startDateEndDate[1];
             
-            console.log("Start: "+startDate);
-            console.log("End: "+endDate);
+            //console.log("Start: "+startDate);
+            //console.log("End: "+endDate);
 
             
             getOTZData();
@@ -436,8 +436,8 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
             var year = jq("#monthYear").val();
             var lastDay = lastDays[month-1];
             
-            console.log("Month: "+month);
-            console.log("Year: "+year);
+            //console.log("Month: "+month);
+            //console.log("Year: "+year);
             
             if(month == 2 && leapYear(year))
             {
@@ -448,8 +448,8 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
             startDate = year+"-"+monthString+"-"+"01"
             endDate = year+"-"+monthString+"-"+lastDay;
             
-            console.log("Start: "+startDate);
-            console.log("End: "+endDate);
+            //console.log("Start: "+startDate);
+            //console.log("End: "+endDate);
             
             getOTZData();
            
@@ -467,17 +467,17 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
                 return
             }
             jq("#filterOTZ").addClass('hidden');
-            console.log("77777777777777777777777777777777777777777777777777777777777777777");
-            console.log("Start: "+startDate);
-            console.log("End: "+endDate);
+            //console.log("77777777777777777777777777777777777777777777777777777777777777777");
+            //console.log("Start: "+startDate);
+            //console.log("End: "+endDate);
             
             /////////////////////////////////////////////////here we go/////////////////////////////////////////////////
             const beginDate = new Date(startDate);
-            console.log("begindate before 2019", beginDate);
+            //console.log("begindate before 2019", beginDate);
             if (beginDate.getFullYear() < 2019) {
                 beginDate.setFullYear(2019, 0, 1);
             }
-            console.log("begindate before 2019 reset", beginDate);
+            //console.log("begindate before 2019 reset", beginDate);
             const finishDate = new Date(endDate);
 
 
@@ -512,26 +512,26 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
 
 
             const monthsData = getStartAndEndDates(beginDate, finishDate);
-            console.log("monthsData", monthsData);
+            //console.log("monthsData", monthsData);
 
 
             // Iterate over the array using a for loop
             // for (let i = 0; i < monthsData.length; i++) {
-            // console.log("Month: " + monthsData[i].month);
+            // //console.log("Month: " + monthsData[i].month);
                 // let year = monthsData[i].startDate.getFullYear();
                 // let month = monthsData[i].month;
                 // let day = monthsData[i].startDate.getDate();
                 // let formattedDate = year + "-" + ("0" + month).slice(-2) + "-" + ("0" + day).slice(-2);
-                // console.log("Start Date: " + formattedDate);
+                // //console.log("Start Date: " + formattedDate);
 // 
                 // let eday = monthsData[i].endDate.getDate();
                 // let eformattedDate = year + "-" + ("0" + month).slice(-2) + "-" + ("0" + eday).slice(-2);
-                // console.log("End Date: " + eformattedDate);
+                // //console.log("End Date: " + eformattedDate);
 //             
-            // console.log("Start Day: " + monthsData[i].startDate.getDate());
-            // console.log("End Day: " + monthsData[i].endDate.getDate());
-            // console.log("Year: " + monthsData[i].startDate.getFullYear());
-            // console.log('----------------------');
+            // //console.log("Start Day: " + monthsData[i].startDate.getDate());
+            // //console.log("End Day: " + monthsData[i].endDate.getDate());
+            // //console.log("Year: " + monthsData[i].startDate.getFullYear());
+            // //console.log('----------------------');
             // }
 
 
@@ -570,9 +570,9 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
             }
 
             const callgetFormattedMonthsData = getFormattedMonthsData(monthsData);
-            console.log("callgetFormattedMonthsData", callgetFormattedMonthsData);
+            //console.log("callgetFormattedMonthsData", callgetFormattedMonthsData);
             formattedMonthLength = callgetFormattedMonthsData.length;
-            console.log("formattedMonthLength", formattedMonthLength);
+            //console.log("formattedMonthLength", formattedMonthLength);
 
            
             // Initialize the HTML content variable
@@ -665,7 +665,7 @@ function calculateDates(startDateTime, jsgroovar) {
     const today = new Date();
   
     const monthsBetweenDates = Math.floor((today - startDateTime) / (1000 * 60 * 60 * 24 * 30));
-    console.log("monthsBetweenDates", monthsBetweenDates);
+    //console.log("monthsBetweenDates", monthsBetweenDates);
         
     let currentMonth = startDateTime.getMonth();
     let currentYear = startDateTime.getFullYear();
@@ -681,7 +681,7 @@ function calculateDates(startDateTime, jsgroovar) {
             const remainder = currentMonth % 12;
             
         const getMaY = getMonthAndYear(remainder, currentYear+quotient);
-        console.log("month:", jf);
+        //console.log("month:", jf);
         let newContent2 =``;
     
         for (let agecccccc = 0; agecccccc<6; agecccccc++){
@@ -1206,19 +1206,19 @@ newContent3 = `
 
 
             /////////////////////////////////////////////////here we go/////////////////////////////////////////////////
-            console.log("for loop log")
-            console.log(callgetFormattedMonthsData)
+            //console.log("for loop log")
+            //console.log(callgetFormattedMonthsData)
             callgetFormattedMonthsData.forEach(function(item) {
                 if (item.month==1){
                     initialDate = item.startDate;
                 }
-                console.log("what date here")
-                console.log(item.month);
+                //console.log("what date here")
+                //console.log(item.month);
                 startDate = item.startDate;
                 endDate = item.endDate;
-                console.log(startDate);
-                console.log(endDate);
-                console.log(initialDate);
+                //console.log(startDate);
+                //console.log(endDate);
+                //console.log(initialDate);
                 getOTZData(item);
             });
 
@@ -1454,7 +1454,7 @@ newContent3 = `
         let currMonth = month.month;
         
         
-        console.log("currMonth", currMonth)
+        //console.log("currMonth", currMonth)
              currReportCount = 0;
             //show the progress area
             jq("#progressArea").removeClass("hidden");
@@ -1944,14 +1944,14 @@ newContent3 = `
             var monthDifference = monthDiff(bDate, today);//get months between 
             
             
-            console.log("what does the trend data looki likeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-            console.log("data",data);
+            //console.log("what does the trend data looki likeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            //console.log("data",data);
             
             
             for(var i=6; i<=monthDifference; i += 6){
                     
                 var mthTitle = (i == 0 ) ? "Baseline": "month"+i;
-                console.log("mthTitle: ", mthTitle)
+                //console.log("mthTitle: ", mthTitle)
 
                 var allPatientsScheduled = data["allPatientsScheduled"+i];
                 var allPatientsKept = data["allPatientsKept"+i];
@@ -1971,8 +1971,8 @@ newContent3 = `
                 var allPatientsTO = data["allPatientsTO"+i];
                 var allPatientsExited = data["allPatientsExited"+i];
                 
-                console.log("allPatientsKept: ", allPatientsKept.length)
-                console.log(allPatientsKept)
+                //console.log("allPatientsKept: ", allPatientsKept.length)
+                //console.log(allPatientsKept)
 
                 // Call the function and log the summary
                 const allPatientsScheduledSum = summarizePatients(allPatientsScheduled);
@@ -2845,7 +2845,7 @@ newContent3 = `
                 jq("#completed7Total_"+currMonth).html(total)
                 
                 totalCompleted7 = new Number(male1014) + new Number(male1519) + new Number(male2024) + new Number(maleabove24) + new Number(female1014) + new Number(female1519)  + new Number(female2024) + new Number(femaleabove24)  ;
-                console.log("total Completed", totalCompleted7);
+                //console.log("total Completed", totalCompleted7);
                 renderCompletedCharts(totalEnrolled, totalCompleted7);
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledAndTransferredOutAfter") }');
             })
@@ -2879,8 +2879,8 @@ newContent3 = `
             })
             
             .then(function(response){
-                console.log("IIT data goes here");
-                console.log(response);
+                //console.log("IIT data goes here");
+                //console.log(response);
                 var data = JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
@@ -2967,7 +2967,7 @@ newContent3 = `
             })
             
             .then(function(response){
-                console.log("1510" +response);
+                //console.log("1510" +response);
                 var data = JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
@@ -3031,7 +3031,7 @@ newContent3 = `
                 //MOD Here3
                 renderAllOUTCOMES(totalDead, totalTransferred, totalExited, totalOptedOut);
                 
-                console.log("completed", datatableObj);
+                //console.log("completed", datatableObj);
                 //datatableObj.destroy();
                 //datatableObj.draw();
                 datatableObj.rows().invalidate().draw()
@@ -3040,8 +3040,8 @@ newContent3 = `
                 return  myAjax({startDate:startDate, endDate:endDate}, "otz/getTxCurr.action");
             }).then(function(response){
 
-                console.log("newDateFromStart");
-            console.log(startDate);
+                //console.log("newDateFromStart");
+            //console.log(startDate);
                 
                 
                 var data = JSON.parse(response);
@@ -3149,12 +3149,12 @@ newContent3 = `
             jq("#parner_NameF15To19_"+currMonth).html(data["Parner_Name"])
             jq("#parner_NameF20To24_"+currMonth).html(data["Parner_Name"])
             
-            console.log(data);
+            //console.log(data);
            
            
             
                 //Export();
-                console.log("which loop is last?")
+                //console.log("which loop is last?")
                 if(currMonth==formattedMonthLength){
                 setTimeout(tableToCSV, 5000);    
                 }
@@ -3169,8 +3169,8 @@ newContent3 = `
         //startDate = jq("#startDate").val();
         //endDate = jq("#endDate").val();
         
-        //console.log("Start: "+startDate);
-        //console.log("End: "+endDate);
+        ////console.log("Start: "+startDate);
+        ////console.log("End: "+endDate);
         
         Export();
             

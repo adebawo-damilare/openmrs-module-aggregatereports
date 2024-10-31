@@ -281,8 +281,8 @@ public class PatientsFragmentController {
 			startDate = startDateTime.toString("yyyy'-'MM'-'dd");
 			endDate = endDateTime.toString("yyyy'-'MM'-'dd");
 			
-			System.out.println(startDate);
-			System.out.println(endDate);
+			//System.out.println(startDate);
+			//System.out.println(endDate);
 			
 			List<Map<String, String>> patientData = clinicalDaoHelper.getPtsStartedOnARTWithDocCd4(startDate, endDate);
 			

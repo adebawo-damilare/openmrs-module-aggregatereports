@@ -351,7 +351,7 @@ public class PatientDao {
 	}
 	
 	public List<Map<String, String>> getAllCurrs(int patientId) {
-		System.out.println("show herezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz ");
+		//System.out.println("show herezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz ");
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		Connection con = null;
@@ -381,12 +381,12 @@ public class PatientDao {
 					+
 					"WHERE patient.voided=0 " +
 					"GROUP BY patient.patient_id ";
-			System.out.println("show herezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz2 ");
+			//System.out.println("show herezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz2 ");
 			int i = 1;
 			// DateTime now = new DateTime(new Date());
 			// String nowString = now.toString("yyyy'-'MM'-'dd' 'HH':'mm");
 			stmt = con.prepareStatement(query);
-			System.out.println("show herezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz3 ");
+			//System.out.println("show herezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz3 ");
 			// stmt.setFetchSize(200);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
