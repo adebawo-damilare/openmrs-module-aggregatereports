@@ -211,7 +211,7 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
     <br/>
     
     <div style="display: block">
-        <div id="OTZReport" style="display: block">OTZ Report</div>
+        <div id="OTZReport" style="display: none">OTZ Report</div>
     </div>
       
     
