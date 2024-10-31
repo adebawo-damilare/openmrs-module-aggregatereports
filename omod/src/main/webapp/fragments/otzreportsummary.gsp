@@ -1930,6 +1930,7 @@ newContent3 = `
                 
                 //retired                
                 //return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithScheduledPickupAfter") }');
+                //getPatientsVLAccess front end function
                 return myAjax({startDate:startDate, endDate:endDate}, "otz/getPatientsVLAccess.action");
             })
 
@@ -2327,8 +2328,8 @@ newContent3 = `
 
 
 
-
-                
+                //dup_functions doing at the backend same as //getPatientsVLAccess front end function
+                /*
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithGoodAdhScoreAfter") }');
             })
             .then(function(response){
@@ -3034,6 +3035,7 @@ newContent3 = `
                 //datatableObj.destroy();
                 //datatableObj.draw();
                 datatableObj.rows().invalidate().draw()
+                */
                 //useful here
                 return  myAjax({startDate:startDate, endDate:endDate}, "otz/getTxCurr.action");
             }).then(function(response){
