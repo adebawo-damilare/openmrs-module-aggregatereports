@@ -1491,43 +1491,6 @@ newContent3 = `
                 jq("#totalEnrolledTotal_"+currMonth).html(total)
                 
                 
-                //lets set some cards
-                setCardValues(data);;
-                
-                
-                return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getAllFullDisc") }');
-            })
-            .then(function(response){
-                
-                var data = JSON.parse(response);
-                console.log("disagregation++++++++++++++++++++++++++++++++++++++++"+response);
-                var male1014 = data["male10To14"];
-                var male1519 = data["male15To19"];
-                var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
-          
-                var female1014 = data["female10To14"];
-                var female1519 = data["female15To19"];
-                var female2024 = data["female20To24"]; var femaleabove24 = data["femaleabove24"];
-               
-                
-                jq("#totalFullDiscM10To14_"+currMonth).html(male1014)
-                jq("#totalFullDiscM15To19_"+currMonth).html(male1519)
-                jq("#totalFullDiscM20To24_"+currMonth).html(male2024)
-                jq("#totalFullDiscMabove24_"+currMonth).html(maleabove24)
-                
-                 jq("#totalFullDiscF10To14_"+currMonth).html(female1014)
-                jq("#totalFullDiscF15To19_"+currMonth).html(female1519);
-                jq("#totalFullDiscF20To24_"+currMonth).html(female2024)
-                jq("#totalFullDiscFabove24_"+currMonth).html(femaleabove24)
-                
-                
-                var total = new Number(male1014) + new Number(male1519) + new Number(male2024) + new Number(maleabove24) + new Number(female1014) + new Number(female1519)  + new Number(female2024) + new Number(femaleabove24) ;
-                jq("#totalFullDiscTotal_"+currMonth).html(total)
-                console.log("total disclosed", total);
-                
-                renderFullDisclosure(totalEnrolled, total);
-                //lets set some cards
-                //setCardValues(data);;
                 
                 //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithScheduledPickup6MonthsBefore") }');
@@ -2365,35 +2328,6 @@ newContent3 = `
 
 
 
-
-                
-                
-                return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWhoKeptScheduledPickupAfter") }');
-            })
-
-            .then(function(response){
-                
-                //var data = JSON.parse(response);
-                //var male1014 = data["male10To14"];
-                //var male1519 = data["male15To19"];
-                //var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
-                //var female1014 = data["female10To14"];
-                //var female1519 = data["female15To19"];
-                //var female2024 = data["female20To24"]; var femaleabove24 = data["femaleabove24"];
-//                
-                //jq("#scheduledKeptPickupFUM10To14_"+currMonth).html(male1014)
-                //jq("#scheduledKeptPickupFUM15To19_"+currMonth).html(male1519)
-                //jq("#scheduledKeptPickupFUM20To24_"+currMonth).html(male2024)
-                //jq("#scheduledKeptPickupFUMabove24_"+currMonth).html(maleabove24)
-//                
-                //jq("#scheduledKeptPickupFUF10To14_"+currMonth).html(female1014)
-                //jq("#scheduledKeptPickupFUF15To19_"+currMonth).html(female1519);
-                //jq("#scheduledKeptPickupFUF20To24_"+currMonth).html(female2024);
-                //jq("#scheduledKeptPickupFUFabove24_"+currMonth).html(femaleabove24);
-//                
-                //var total = new Number(male1014) + new Number(male1519) + new Number(male2024) + new Number(maleabove24) + new Number(female1014) + new Number(female1519)  + new Number(female2024) + new Number(femaleabove24) ;
-                //jq("#scheduledKeptPickupFUTotal_"+currMonth).html(total)
-                
                 
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEnrolledWithGoodAdhScoreAfter") }');
             })
