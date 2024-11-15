@@ -3442,7 +3442,7 @@ public class OTZDao {
 			        + "MAX(IF(obs.concept_id=166265, obs.value_datetime,NULL)) AS pmdate,"
 			        + "MAX(IF(obs.concept_id=166266, obs.value_datetime,NULL)) AS rodate,"
 			        + "MAX(IF(obs.concept_id=166268, obs.value_datetime,NULL)) AS ocdate,"
-			        + "patient_identifier.identifier, patient_program.date_enrolled,  dqr_meta.patient_id, TIMESTAMPDIFF(YEAR, person.birthdate, patient_program.date_enrolled) AS age, TIMESTAMPDIFF(YEAR, person.birthdate, ?) AS cage,  person.gender, dqr_meta.art_start_date, person.birthdate, person_name.given_name, person_name.family_name "
+			        + "patient_identifier.identifier, patient_program.date_enrolled,  dqr_meta.patient_id, TIMESTAMPDIFF(YEAR, person.birthdate, patient_program.date_enrolled) AS age, TIMESTAMPDIFF(YEAR, person.birthdate, ?) AS cage,  person.gender, dqr_meta.art_start_date, person.birthdate, person_name.given_name, person_name.family_name , dqr_meta.otzplus_date as otzplusedate "
 			        + " FROM obs "
 			        + " JOIN dqr_meta ON dqr_meta.patient_id=obs.person_id"
 			        + "                                 JOIN person ON person.person_id=dqr_meta.patient_id \n"
