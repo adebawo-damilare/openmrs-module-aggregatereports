@@ -4739,7 +4739,7 @@ public class OTZDao {
                         
                         StringBuilder queryString2 = new StringBuilder(
 			        "SELECT address_hierarchy_entry.name FROM global_property\n" +
-                                " join address_hierarchy_entry on (address_hierarchy_entry.user_generated_id=global_property.property_value)\n" +
+                                " join address_hierarchy_entry on (address_hierarchy_entry.user_generated_id=global_property.property_value and address_hierarchy_entry.level_id='3')\n" +
                                 " WHERE property = 'partner_reporting_lga_code'");
                         
                         StringBuilder queryString3 = new StringBuilder(
