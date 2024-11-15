@@ -3156,7 +3156,7 @@ newContent3 = `
                 //Export();
                 //console.log("which loop is last?")
                 if(currMonth==formattedMonthLength){
-                setTimeout(tableToCSV, 50000);    
+                setTimeout(tableToCSV, 120000);    
                 }
                 //tableToCSV();
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEligibleForMonthZeroVL") }');
