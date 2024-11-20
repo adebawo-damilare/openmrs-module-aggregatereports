@@ -3228,12 +3228,16 @@ newContent3 = `
  
                     // Get the text data of each cell
                     // of a row and push it to csvrow
-                    csvrow.push(cols[j].innerHTML);
+                    csvrow.push(cols[j].textContent.trim());
+
+                    
                 }
                 if(endloop){break;}
  
                 // Combine each column value with comma
-                csv_data.push(csvrow.join(","));
+                if (csvrow.length > 0) {				
+                    csv_data.push(csvrow.join(","));
+                }
             }
  
             // Combine each row data with new line character
