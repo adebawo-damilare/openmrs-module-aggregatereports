@@ -200,6 +200,7 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
                 <div class="col text-right">
                     
                     <button class="button loadingViewButton confirm" id="filterOTZ"><i class="icon-play"></i>&nbsp; Run</button>
+                    <button class="button loadingViewButton confirm" id="filterOTZ2" style="display: none"><i class="icon-play"></i>&nbsp; Run2</button>
                 </div>
             </div>
            
@@ -457,6 +458,41 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
         });
           
           
+       jq("#filterOTZ2").click(function(e) {
+            let startDate = jq('#startDate').val();
+            let endDate = jq('#endDate').val();
+
+            if (startDate === "" || endDate === "") {
+                alert("Please select a valid date range");
+                return
+            }
+            
+            const params = new URLSearchParams();
+            params.append('startDate', startDate);
+            params.append('endDate', endDate);
+            params.append('ageType', ageTyp);
+
+            fetch('${ ui.actionLink("dataquality", "otzreportsummary", "getAllEnrolledInOTZ3") }', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: params
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = "OTZ_Report.xlsx";
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+            });
+        });
+
+
         jq("#filterOTZ").click(function(e){
         
                     
@@ -1228,6 +1264,9 @@ newContent3 = `
         });
         
         
+        
+
+        
          jq(".otzDetails").click(function(e){
               //startDate = jq("#startDate").val();
               //endDate = jq("#endDate").val();
@@ -1257,6 +1296,10 @@ newContent3 = `
               
         
           });
+
+
+        
+
       });
       
         
@@ -1329,17 +1372,21 @@ newContent3 = `
                 '15-19': { F: 0, M: 0 },
                 '20-24': { F: 0, M: 0 }
             };
-
-            patients.forEach(patient => {
-                const ageGroup = getAgeGroup(patient.age);
-                if (ageGroup !== 'Unknown') {
-                    if (patient.gender === 'F') {
-                        summary[ageGroup].F++;
-                    } else if (patient.gender === 'M') {
-                        summary[ageGroup].M++;
+            try{
+                patients.forEach(patient => {
+                    const ageGroup = getAgeGroup(patient.age);
+                    if (ageGroup !== 'Unknown') {
+                        if (patient.gender === 'F') {
+                            summary[ageGroup].F++;
+                        } else if (patient.gender === 'M') {
+                            summary[ageGroup].M++;
+                        }
                     }
-                }
-            });
+                });
+            }catch(e)
+            {
+
+            }
 
             return summary;
             }
@@ -1353,22 +1400,27 @@ newContent3 = `
                 '20-24': { F: 0, M: 0 }
             };
 
-            patients.forEach(patient => {
-                const ageGroup = getAgeGroup(patient.age);
+            try{
+                patients.forEach(patient => {
+                    const ageGroup = getAgeGroup(patient.age);
 
-                if (patient.viralLoad < 200) {
-                    if (ageGroup !== 'Unknown') {
-                        if (patient.gender === 'F') {
-                            summary[ageGroup].F++;
-                        } else if (patient.gender === 'M') {
-                            summary[ageGroup].M++;
+                    if (patient.viralLoad < 200) {
+                        if (ageGroup !== 'Unknown') {
+                            if (patient.gender === 'F') {
+                                summary[ageGroup].F++;
+                            } else if (patient.gender === 'M') {
+                                summary[ageGroup].M++;
+                            }
                         }
                     }
-                }
 
 
-            });
+                });
+            }
+            catch(e)
+            {
 
+            }
             return summary;
             }
 
@@ -1379,22 +1431,26 @@ newContent3 = `
                 '15-19': { F: 0, M: 0 },
                 '20-24': { F: 0, M: 0 }
             };
+            try{
+                patients.forEach(patient => {
+                    const ageGroup = getAgeGroup(patient.age);
 
-            patients.forEach(patient => {
-                const ageGroup = getAgeGroup(patient.age);
-
-                if (patient.viralLoad >= 200 && patient.viralLoad < 1000) {
-                    if (ageGroup !== 'Unknown') {
-                        if (patient.gender === 'F') {
-                            summary[ageGroup].F++;
-                        } else if (patient.gender === 'M') {
-                            summary[ageGroup].M++;
+                    if (patient.viralLoad >= 200 && patient.viralLoad < 1000) {
+                        if (ageGroup !== 'Unknown') {
+                            if (patient.gender === 'F') {
+                                summary[ageGroup].F++;
+                            } else if (patient.gender === 'M') {
+                                summary[ageGroup].M++;
+                            }
                         }
                     }
-                }
 
 
-            });
+                });
+            }catch(e)
+            {
+
+            }
 
             return summary;
             }
@@ -1406,23 +1462,26 @@ newContent3 = `
                 '15-19': { F: 0, M: 0 },
                 '20-24': { F: 0, M: 0 }
             };
+            try{
+                patients.forEach(patient => {
+                    const ageGroup = getAgeGroup(patient.age);
 
-            patients.forEach(patient => {
-                const ageGroup = getAgeGroup(patient.age);
-
-                if (patient.viralLoad >= 1000) {
-                    if (ageGroup !== 'Unknown') {
-                        if (patient.gender === 'F') {
-                            summary[ageGroup].F++;
-                        } else if (patient.gender === 'M') {
-                            summary[ageGroup].M++;
+                    if (patient.viralLoad >= 1000) {
+                        if (ageGroup !== 'Unknown') {
+                            if (patient.gender === 'F') {
+                                summary[ageGroup].F++;
+                            } else if (patient.gender === 'M') {
+                                summary[ageGroup].M++;
+                            }
                         }
                     }
-                }
 
 
-            });
-
+                });
+            }catch(e)
+            {
+                
+            }
             return summary;
             }
             
@@ -1466,15 +1525,51 @@ newContent3 = `
             
            
             //useful here
-            myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getAllEnrolledInOTZ") }').then(function(response){
+            myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getAllEnrolledInOTZCurr") }').then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
+            
+                var male1014=0,male1519=0,male2024=0, maleabove24=0, female1014=0,female1519=0, female2024=0,femaleabove24=0;
+                
+                var male1014Active = data["male10To14_Active"];
+                var male1519Active = data["male15To19_Active"];
+                var male2024Active = data["male20To24_Active"];
+                var female1014Active = data["female10To14_Active"];
+                var female1519Active = data["female15To19_Active"];
+                var female2024Active = data["female20To24_Active"];
+
+                
+
+                
+                jq("#AYPLHIVCurrentM10To14_"+currMonth).html(male1014Active)
+                jq("#AYPLHIVCurrentM15To19_"+currMonth).html(male1519Active)
+                jq("#AYPLHIVCurrentM20To24_"+currMonth).html(male2024Active)
+              
+                
+                jq("#AYPLHIVCurrentF10To14_"+currMonth).html(female1014Active)
+                jq("#AYPLHIVCurrentF15To19_"+currMonth).html(female1519Active);
+                jq("#AYPLHIVCurrentF20To24_"+currMonth).html(female2024Active)
+                
+               
+                var total = new Number(male1014) + new Number(male1519) + new Number(male2024) + new Number(maleabove24) + new Number(female1014) + new Number(female1519)  + new Number(female2024) + new Number(femaleabove24) ;
+                jq("#totalEnrolledTotal_"+currMonth).html(total)
+                
+                
+                
+                //useful here
+                return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getAllEnrolledInOTZ") }');
+            })
+            .then(function(response){
+                
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
                 var female1014 = data["female10To14"];
                 var female1519 = data["female15To19"];
                 var female2024 = data["female20To24"]; var femaleabove24 = data["femaleabove24"];
+
+
                 
                 jq("#totalEnrolledM10To14_"+currMonth).html(male1014)
                 jq("#totalEnrolledM15To19_"+currMonth).html(male1519)
@@ -1485,6 +1580,8 @@ newContent3 = `
                 jq("#totalEnrolledF15To19_"+currMonth).html(female1519);
                 jq("#totalEnrolledF20To24_"+currMonth).html(female2024)
                 jq("#totalEnrolledFabove24_"+currMonth).html(femaleabove24)
+
+                
                 
                
                 var total = new Number(male1014) + new Number(male1519) + new Number(male2024) + new Number(maleabove24) + new Number(female1014) + new Number(female1519)  + new Number(female2024) + new Number(femaleabove24) ;
@@ -1497,7 +1594,7 @@ newContent3 = `
             })
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1523,7 +1620,7 @@ newContent3 = `
             })
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1551,7 +1648,7 @@ newContent3 = `
             
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1578,7 +1675,7 @@ newContent3 = `
             
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1606,7 +1703,7 @@ newContent3 = `
             
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1633,7 +1730,7 @@ newContent3 = `
             })
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1658,7 +1755,7 @@ newContent3 = `
             })
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1686,7 +1783,7 @@ newContent3 = `
 
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1714,7 +1811,7 @@ newContent3 = `
             
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1741,7 +1838,7 @@ newContent3 = `
             
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1769,7 +1866,7 @@ newContent3 = `
             
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1796,7 +1893,7 @@ newContent3 = `
             })
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1823,7 +1920,7 @@ newContent3 = `
             })
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1850,7 +1947,7 @@ newContent3 = `
             })
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1877,7 +1974,7 @@ newContent3 = `
             })
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1906,7 +2003,7 @@ newContent3 = `
 
             .then(function(response){
                 
-                var data = JSON.parse(response);
+                var data = response;//JSON.parse(response);
                 var male1014 = data["male10To14"];
                 var male1519 = data["male15To19"];
                 var male2024 = data["male20To24"];var maleabove24 = data["maleabove24"];
@@ -1937,7 +2034,7 @@ newContent3 = `
 
             .then(function(response){
                 
-            var data = JSON.parse(response);
+            var data = response;
 
             var today = new Date();
             var bDate = new Date(startDate);
@@ -3037,7 +3134,7 @@ newContent3 = `
                 datatableObj.rows().invalidate().draw()
                 */
                 //useful here
-                return  myAjax({startDate:startDate, endDate:endDate}, "otz/getTxCurr.action");
+            /*    return  myAjax({startDate:startDate, endDate:endDate}, "otz/getTxCurr.action");
             }).then(function(response){
 
                 //console.log("newDateFromStart");
@@ -3090,7 +3187,7 @@ newContent3 = `
                 jq("#AYPLHIVCurrentF10To14_"+currMonth).html(datalengthCurAYPLIVF10To14)
                 jq("#AYPLHIVCurrentF15To19_"+currMonth).html(datalengthCurAYPLIVF15To19);
                 jq("#AYPLHIVCurrentF20To24_"+currMonth).html(datalengthCurAYPLIVF20To24)
-             
+            */
 
                 //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("dnt") }');

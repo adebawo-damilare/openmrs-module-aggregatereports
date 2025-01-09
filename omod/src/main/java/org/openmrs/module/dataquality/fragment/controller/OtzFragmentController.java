@@ -6701,6 +6701,362 @@ public class OtzFragmentController {
 		
 	}
 	
+	public Map<String, Object> getPatientsVLAccess(String startDate, String endDate, String ageType) {
+		DateTime startDateTime = new DateTime(startDate);
+		DateTime endDateTime = new DateTime(endDate);
+		//DateTime sixMonthsAgo = endDateTime.minusMonths(6);
+                
+        //String startDate = startDateTime.toString("yyyy'-'MM'-'dd");
+		//String endDate = endDateTime.toString("yyyy'-'MM'-'dd");
+		//String sixMonths = sixMonthsAgo.toString("yyyy'-'MM'-'dd");
+                
+                Map<String, Object> data = new HashMap<>();
+                DateTime today = new DateTime();
+                
+                int monthsBetweenDates = Months.monthsBetween(startDateTime, today).getMonths();
+                //for(int j=0; j<monthsBetweenDates; j +=6)
+                for(int j=0; j <= monthsBetweenDates; j +=6)
+                {
+                    DateTime futureStartDateTime = startDateTime.plusMonths(j);
+                    DateTime futureStartDateTime2 = startDateTime.plusMonths(j+6);
+                    DateTime futureEndDateTime = endDateTime.plusMonths(j);
+                    DateTime futureEndDateTime2 = endDateTime.plusMonths(j+6);
+                    
+                    DateTime sixMonthsAgoDateTime = futureStartDateTime.minusMonths(6);
+                    String sixMonthsAgo = sixMonthsAgoDateTime.toString("yyyy'-'MM'-'dd");
+                    DateTime sixMonthsAgoDateTime2 = futureStartDateTime2.minusMonths(6);
+                    String sixMonthsAgo2 = sixMonthsAgoDateTime2.toString("yyyy'-'MM'-'dd");
+                    
+                    String futureStartDate = futureStartDateTime.toString("yyyy'-'MM'-'dd");
+                    String futureEndDate = futureEndDateTime.toString("yyyy'-'MM'-'dd");
+                    String futureStartDate2 = futureStartDateTime2.toString("yyyy'-'MM'-'dd");
+                    String futureEndDate2 = futureEndDateTime2.toString("yyyy'-'MM'-'dd");
+                    
+                    int month = j;
+                    if(j == 0)
+                    {
+                       // month = j-6;
+                    }
+                    List<OTZPatient> allPatients = otzDao.getTotalPtsEnrolledAndEligibleForVL3(startDate, endDate,  month);
+                    //stopped here
+                    
+                    //quick
+                    List<OTZPatient> allPatientsExited = otzDao.getTotalEnrolledAndExitedAfter(startDate, endDate);
+                    List<OTZPatient> allPatientsTO = otzDao.getTotalEnrolledAndTransitionedAfter(startDate, endDate);
+                    List<OTZPatient> allPatientsOptedOut = otzDao.getTotalEnrolledAndOptedOutAfter(startDate, endDate);
+                    List<OTZPatient> allPatientsDied = otzDao.getTotalEnrolledAndDiedAfter(startDate, endDate);
+                    List<OTZPatient> allPatientsIIT = otzDao.getTotalEnrolledAndLTFUAfter(startDate, endDate);
+                    List<OTZPatient> allPatientsTransferred = otzDao.getTotalEnrolledAndTransferredOutAfter(startDate, endDate);
+                    List<OTZPatient> allPatientsWhoCompleted = otzDao.getTotalAYPLHIVEnrolledInOTZWhoComplete7(startDate, endDate);
+                    List<OTZPatient> allPatientsSwitchTo3rd = otzDao.getTotalEnrolledWithSwitchTo3rdLine(startDate, endDate, String.valueOf(month));
+                    List<OTZPatient> allPatientsSwitchTo2nd = otzDao.getTotalEnrolledWithSwitchTo2ndLine(startDate, endDate, String.valueOf(month));
+                    List<OTZPatient> allPatientsPast12MonthsResultAbove1000WithRepeatVl = otzDao.getTotalEnrolledWithVLPast12MonthsResultAbove1000WithRepeatVl(startDate, endDate, String.valueOf(month));
+                    List<OTZPatient> allPatientsPast12MonthsResultAbove1000WithRepeatVlBelow200 = otzDao.getTotalEnrolledWithVLPast12MonthsResultAbove1000WithRepeatVlBelow200(startDate, endDate, String.valueOf(month));
+                    List<OTZPatient> allPatientsPast12MonthsResultAbove1000WithRepeatVlAbove200Below1000 = otzDao.getTotalEnrolledWithVLPast12MonthsResultAbove1000WithRepeatVlAbove200Below1000(startDate, endDate, String.valueOf(month));
+                     
+                    
+                    List<OTZPatient> patientsEligible = new ArrayList<>();
+                    List<OTZPatient> patientsWithSample = new ArrayList<>();
+                    List<OTZPatient> patientsWithResult = new ArrayList<>();
+                    List<OTZPatient> patientsWithResultPast6Months = new ArrayList<>();
+                    List<OTZPatient> patientsSuppressedPast6Months = new ArrayList<>();
+                    List<OTZPatient> patientsUndetectablePast6Months = new ArrayList<>();
+                    List<OTZPatient> patientsLLVPast6Months = new ArrayList<>();
+                    
+
+                    
+                    List<OTZPatient> patientsWithResultPast12Months = new ArrayList<>();
+                    List<OTZPatient> patientsSuppressedPast12Months = new ArrayList<>();
+                    List<OTZPatient> patientsUndetectablePast12Months = new ArrayList<>();
+                    List<OTZPatient> patientsLLVPast12Months = new ArrayList<>();
+                    
+                    List<OTZPatient> patientsWithResultPast12MonthsAbove1000 = new ArrayList<>();
+                     
+                    for(int i=0; i<allPatients.size(); i++)
+                    {
+                    	DateTime artStartDate = new DateTime(allPatients.get(i).getArtStartDate().substring(0, 10));
+                        DateTime enrollmentDate = new DateTime(allPatients.get(i).getEnrollmentDate().substring(0, 10));
+                        DateTime sampleCollectionDate = (allPatients.get(i).getPreviousSampleCollectionDate() != null) ? new DateTime(allPatients.get(i).getPreviousSampleCollectionDate().substring(0, 10)) : new DateTime();
+                        DateTime newSampleCollectionDate = (allPatients.get(i).getSampleCollectionDate() != null) ? new DateTime(allPatients.get(i).getSampleCollectionDate().substring(0, 10)) : new DateTime();
+                        float vlResult = allPatients.get(i).getPreviousViralLoad();
+                        
+                        
+                        //we need the last day of the month for the enrollment date
+                        int lastDateInCohortMonth = enrollmentDate.dayOfMonth().getMaximumValue();
+                        
+                        
+                        DateTime enrollmentLastDate = enrollmentDate.dayOfMonth().withMaximumValue();
+                        DateTime enrollmentFirstDate = enrollmentDate.dayOfMonth().withMinimumValue();//this is the first day of the month for the enrollment month
+                        DateTime expectedSampleCollectionDateForMonth = enrollmentDate.plusMonths(j);
+                        
+                        int daysDifference = Days.daysBetween(sampleCollectionDate, expectedSampleCollectionDateForMonth).getDays();
+                        //get number of months between previous sample collection date and expected sample collection date. This helps us to know if the patient is eligible
+                        int monthsBetween = (sampleCollectionDate != null) ? Months.monthsBetween(sampleCollectionDate.dayOfMonth().withMinimumValue(), expectedSampleCollectionDateForMonth.dayOfMonth().withMaximumValue()).getMonths() : -1;
+                        //get the number of months between the expected sample collection date and the actual sample collection date to know if sample was indeed collected
+                        int monthsBetweenExpectedAndActual = (expectedSampleCollectionDateForMonth != null) ?  Months.monthsBetween(expectedSampleCollectionDateForMonth.dayOfMonth().withMinimumValue(), newSampleCollectionDate.dayOfMonth().withMaximumValue()).getMonths() : -1;
+                        
+                        int monthBetweenArtStartDateAndPeriod = Months.monthsBetween(artStartDate, enrollmentDate).getMonths();
+                        
+                        //sample was either npatientsWithResultPast6Monthsot taken or was taken at the right day. That means they are eliglble
+                       
+                        //if there is no result/sample collection and the person is up to six months on art or if the result is at least 6 months old and is suppressed
+                        if( monthsBetween == -1 ||  (monthsBetween >= 6 && vlResult < 1000) ) {
+                        //if(monthsBetween == -1) {
+                        	patientsEligible.add(allPatients.get(i));
+                        	//those with sample collection have to be a subset of these
+                        	//if(monthsBetweenExpectedAndActual == 0 )//this approximates. I.e someone with sample collected at november 17 is added, even when the expected is say dec 6
+                        	if((newSampleCollectionDate != null) && (expectedSampleCollectionDateForMonth.getMonthOfYear() == newSampleCollectionDate.getMonthOfYear() && expectedSampleCollectionDateForMonth.getYear() == newSampleCollectionDate.getYear()))
+                            {
+                                 patientsWithSample.add(allPatients.get(i));
+                                 //for there to be result, sample must have been taken
+                                if(allPatients.get(i).getViralLoad() != -1)
+                                {
+                                    patientsWithResult.add(allPatients.get(i));
+                                   
+                                }
+                            }
+                        	
+                        }
+                        
+                        
+                        
+                      
+                        
+                        /*long monthsBetween = ChronoUnit.MONTHS.between(
+                                LocalDate.parse(allPatients.get(i).getEnrollmentDate()).withDayOfMonth(1),
+                                LocalDate.parse(allPatients.get(i).getSampleCollectionDate()).withDayOfMonth(1));*/
+                       // //System.out.println(monthsBetween); //3
+
+                        //check if there is a test is within the past 6 months
+                        //if(monthsBetweenExpectedAndActual >= 0 && monthsBetweenExpectedAndActual <=6)
+                        if(monthsBetween >= 0 && monthsBetween <=6)
+                        {
+                           
+                            /*if(allPatients.get(i).getViralLoad() != -1)
+                            {
+                                patientsWithResultPast6Months.add(allPatients.get(i));//there is result within the past 6 months
+                                if(allPatients.get(i).getViralLoad() < 1000)//the result is suppressed
+                                {
+                                    patientsSuppressedPast6Months.add(allPatients.get(i));
+                                    if(allPatients.get(i).getViralLoad() <=50)
+                                    {
+                                        patientsUndetectablePast6Months.add(allPatients.get(i));
+                                    }
+                                    else{
+                                        patientsLLVPast6Months.add(allPatients.get(i));
+                                    }
+                                }
+                            }*/
+                        	if(allPatients.get(i).getPreviousViralLoad() != -1)
+                            {
+                                patientsWithResultPast6Months.add(allPatients.get(i));//there is result within the past 6 months
+                                if(allPatients.get(i).getPreviousViralLoad() < 1000)//the result is suppressed
+                                {
+                                    patientsSuppressedPast6Months.add(allPatients.get(i));
+                                    if(allPatients.get(i).getPreviousViralLoad() <=50)
+                                    {
+                                        patientsUndetectablePast6Months.add(allPatients.get(i));
+                                    }
+                                    else{
+                                        patientsLLVPast6Months.add(allPatients.get(i));
+                                    }
+                                }
+                            }
+                            
+                            
+                        }
+                        //if(monthsBetweenExpectedAndActual >= 0 && monthsBetweenExpectedAndActual <=12)
+                        if(monthsBetween >= 0 && monthsBetween<=12)
+                        {
+                        
+                            /*if(allPatients.get(i).getViralLoad() != -1)
+                            {
+                                patientsWithResultPast12Months.add(allPatients.get(i));
+                                if(allPatients.get(i).getViralLoad() < 1000)//the result is suppressed
+                                {
+                                    patientsSuppressedPast12Months.add(allPatients.get(i));
+                                     if(allPatients.get(i).getViralLoad() <=50)
+                                    {
+                                        patientsUndetectablePast12Months.add(allPatients.get(i));
+                                    }
+                                    else{
+                                        patientsLLVPast12Months.add(allPatients.get(i));
+                                    }
+                                    
+                                }else{
+                                    patientsWithResultPast12MonthsAbove1000.add(allPatients.get(i));//this is unsuppressed
+                                }
+                            }*/
+                        	if(allPatients.get(i).getPreviousViralLoad() != -1)
+                            {
+                                patientsWithResultPast12Months.add(allPatients.get(i));
+                                if(allPatients.get(i).getPreviousViralLoad() < 1000)//the result is suppressed
+                                {
+                                    patientsSuppressedPast12Months.add(allPatients.get(i));
+                                     if(allPatients.get(i).getPreviousViralLoad() <=50)
+                                    {
+                                        patientsUndetectablePast12Months.add(allPatients.get(i));
+                                    }
+                                    else{
+                                        patientsLLVPast12Months.add(allPatients.get(i));
+                                    }
+                                    
+                                }else{
+                                    patientsWithResultPast12MonthsAbove1000.add(allPatients.get(i));//this is unsuppressed
+                                }
+                            }
+                            
+                        }
+                        
+                        /*if(allPatients.get(i).getSampleCollectionDate() == null)
+                        {
+                            //no sample has been taken at all. The patient is eligible for month 6 then
+                            patientsEligible.add(allPatients.get(i));
+                        }
+                        else if(monthsBetween ==j || (monthsBetween + 1) == j || (monthsBetween - 1) == j)
+                        {
+                            patientsWithSample.add(allPatients.get(i));//sample was taken at six months
+                            patientsEligible.add(allPatients.get(i));
+                            if(allPatients.get(i).getViralLoad() != 0)
+                            {
+                                patientsWithResult.add(allPatients.get(i));
+                               
+                            }
+
+                        }*/
+
+                    }
+                    
+                    
+                    data.put("patientsEligible"+j, patientsEligible);
+                    data.put("patientsWithSample"+j, patientsWithSample); 
+                    data.put("patientsWithResult"+j, patientsWithResult);
+                    data.put("patientsWithResultPast6Months"+j, patientsWithResultPast6Months);
+                    data.put("patientsSuppressedPast6Months"+j, patientsSuppressedPast6Months);
+                    data.put("patientsUndetectablePast6Months"+j, patientsUndetectablePast6Months);
+                    data.put("patientsLLVPast6Months"+j, patientsLLVPast6Months);
+                    data.put("patientsWithResultPast12Months"+j, patientsWithResultPast12Months);
+                    data.put("patientsSuppressedPast12Months"+j, patientsSuppressedPast12Months);
+                    data.put("patientsUndetectablePast12Months"+j, patientsUndetectablePast12Months);
+                    data.put("patientsLLVPast12Months"+j, patientsLLVPast12Months);
+                    data.put("patientsWithResultPast12MonthsAbove1000"+j, patientsWithResultPast12MonthsAbove1000);
+                    
+                    //quick
+                    data.put("allPatientsPast12MonthsResultAbove1000WithRepeatVl"+j, allPatientsPast12MonthsResultAbove1000WithRepeatVl);
+                    data.put("allPatientsPast12MonthsResultAbove1000WithRepeatVlBelow200"+j, allPatientsPast12MonthsResultAbove1000WithRepeatVlBelow200);
+                    data.put("allPatientsPast12MonthsResultAbove1000WithRepeatVlAbove200Below1000"+j, allPatientsPast12MonthsResultAbove1000WithRepeatVlAbove200Below1000);
+                    data.put("allPatientsSwitchTo2nd"+j, allPatientsSwitchTo2nd);
+                    data.put("allPatientsSwitchTo3rd"+j, allPatientsSwitchTo3rd);
+                    data.put("allPatientsWhoCompleted"+j, allPatientsWhoCompleted);
+                    data.put("allPatientsTransferred"+j, allPatientsTransferred);
+                    data.put("allPatientsIIT"+j, allPatientsIIT);
+                    data.put("allPatientsDied"+j, allPatientsDied);
+                    data.put("allPatientsOptedOut"+j, allPatientsOptedOut);
+                    data.put("allPatientsTO"+j, allPatientsTO);
+                    data.put("allPatientsExited"+j, allPatientsExited);
+                    
+                   
+                    
+                    
+                    //get those who completed EAC
+                    List<OTZPatient> allPatients2 = otzDao.getTotalEnrolledAndCompletedEACPast12Months(startDate, endDate,  j);
+                    
+                    List<OTZPatient> patientsWhoCompletedEACPast12Months = new ArrayList<>();
+                    List<OTZPatient> suppressedPatientsPostEAC = new ArrayList<>();
+                    //loop through and add accordingly
+                    for(int i=0; i<allPatients2.size(); i++)
+                    {
+                        
+                      
+                        
+                        
+                        if(allPatients2.get(i).getViralLoad() != 0 && allPatients2.get(i).getViralLoad() >=1000)
+                        {
+                            patientsWhoCompletedEACPast12Months.add(allPatients2.get(i));
+                        }
+                        if(allPatients2.get(i).getViralLoad() != 0 && allPatients2.get(i).getViralLoad() <1000)
+                        {
+                            suppressedPatientsPostEAC.add(allPatients2.get(i));
+                        }
+                        
+                    }
+                    data.put("patientsWhoCompletedEACPast12Months"+j, patientsWhoCompletedEACPast12Months);
+                    data.put("suppressedPatientsPostEAC"+j, suppressedPatientsPostEAC);
+                    
+                     //get those who completed EAC
+                    List<OTZPatient> allPatients3 = otzDao.getTotalEnrolledWithVLPast12MonthsWithRepeatVl(startDate, endDate,  j);
+                    
+                    List<OTZPatient> patientsWithRepeatVl12Months = new ArrayList<>();
+                    //loop through and add accordingly
+                    for(int i=0; i<allPatients3.size(); i++)
+                    {
+                        patientsWithRepeatVl12Months.add(allPatients3.get(i));
+                        
+                    }
+                    
+                    data.put("patientsWithRepeatVl12Months"+j, patientsWithRepeatVl12Months);
+                    
+                    
+                    
+                    
+                     //we could get adherence data here too
+                    List<OTZPatient> allPatientsScheduled = otzDao.getTotalEnrolledWithScheduledPickupMonthN(startDate, endDate,  sixMonthsAgo, futureEndDate, j);
+                    //List<OTZPatient> allPatientsScheduled = otzDao.getTotalEnrolledWithScheduledPickupMonthN2(startDate, endDate, j);
+                    //List<OTZPatient> allPatientsScheduled = otzDao.getTotalEnrolledWithScheduledPickup6MonthsBeforeAndAfter(startDate, endDate, j,  sixMonthsAgo, futureEndDate2);
+                    List<OTZPatient> allPatientsKept = otzDao.getTotalEnrolledWhoKeptScheduledPickupMonthN(startDate, endDate,  sixMonthsAgo, futureEndDate, j);
+                    //List<OTZPatient> allPatientsKept = otzDao.getTotalEnrolledWhoKeptScheduledPickup6MonthsBeforeAndAfter(startDate, endDate,  j,  sixMonthsAgo, futureEndDate2);
+                    List<OTZPatient> allPatientsGoodScore = otzDao.getTotalEnrolledWithGoodAdhScoreMonthN(startDate, endDate,  sixMonthsAgo, futureEndDate);
+                    //List<OTZPatient> allPatientsGoodScore = otzDao.getTotalEnrolledWithGoodAdhScore6MonthsBeforeAndAfter(startDate, endDate,  j,  sixMonthsAgo, futureEndDate2);
+                    
+                    data.put("allPatientsScheduled"+j, allPatientsScheduled);
+                    data.put("allPatientsKept"+j, allPatientsKept);
+                    data.put("allPatientsGoodScore"+j, allPatientsGoodScore);
+                    
+                    
+                    
+                    // To include the current month block
+                    /*
+					if (j > monthsBetweenDates) {
+                    break;
+                    }
+					*/
+                   
+                }
+                
+		//Database.initConnection();
+		
+                
+              
+                
+                //lets get those who completed 7 modules
+                
+                 List<OTZPatient> allPatientsWhoCompleted = otzDao.getTotalAYPLHIVEnrolledInOTZWhoComplete7(startDate, endDate);
+                 
+                 List<OTZPatient> allPatientsIIT = otzDao.getTotalEnrolledAndLTFUAfter(startDate, endDate);
+                 
+                 List<OTZPatient> allPatientsTO = otzDao.getTotalEnrolledAndTransitionedAfter(startDate, endDate);
+                
+                //lets loop through and perform operations to get eligibility at month 6, 12 and 18
+		
+                JSONObject quarters = Misc.getQuartersBetweenDates(startDate, endDate);
+                
+                data.put("complete7Modules", allPatientsWhoCompleted);
+                
+                data.put("alPatientsIIT", allPatientsIIT);
+                
+                data.put("alPatientsTO", allPatientsTO);
+               
+                data.put("quarters", quarters);
+                
+              
+		
+                String json = new Gson().toJson(data);
+		
+		//return json;
+        return data;
+		
+	}
+	
 	public String getPatientsVLCoverage(HttpServletRequest request) {
 		DateTime startDateTime = new DateTime(request.getParameter("startDate"));
 		DateTime endDateTime = new DateTime(request.getParameter("endDate"));

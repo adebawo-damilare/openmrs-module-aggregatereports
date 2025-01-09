@@ -37,6 +37,7 @@ def getFactorial = { num -> (num <= 1) ? 1 : num * call(num - 1) }
                 <th>Age at OTZ Enrollment</th>
                 <th>Current Age</th>
                 <th>Date Enrolled in OTZ</th>
+                <th>Date Enrolled in OTZ Plus</th>
                 <th>ART Start Date</th>
                 <!--<th>Age Range</th>-->
                 
@@ -69,6 +70,18 @@ def getFactorial = { num -> (num <= 1) ? 1 : num * call(num - 1) }
                             }
                         %>
                         <td><%= patients.get(i).getEnrollmentDate()%></td>
+                        <%
+                        if(patients.get(i).getOtzplusedate() != null)
+                        {
+                        %>
+                        <td><%= patients.get(i).getOtzplusedate()%></td>
+                        <%
+                            }else{
+                        %>
+                        <td></td>
+                        <%
+                            }
+                        %>
                         <td><%= patients.get(i).getArtStartDate()%></td>
                         
                     </tr>

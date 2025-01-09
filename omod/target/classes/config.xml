@@ -5,9 +5,9 @@
 	<!-- Base Module Properties -->
 	<id>dataquality</id>
 	<name>Dataquality</name>
-	<version>1.0.3</version>
+	<version>1.0.7</version>
 	<package>org.openmrs.module.dataquality</package>
-	<author>Lordmaul</author>
+	<author>Lordmaul, Adebawo Damilare</author>
 	<description>
 			This module generates data quality indicators for the Nigeria Medical Record System Platform
 	</description>

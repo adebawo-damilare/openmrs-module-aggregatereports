@@ -356,4 +356,71 @@
                  endDelimiter=";"/>                   
     </changeSet>-->
     
+    <changeSet id="org.openmrs.module.dataquality-v1.0-6" author="Adebawo_otzplus_date">
+        <addColumn tableName="dqr_meta">
+            <column name="otzplus_date" type="DATETIME">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="org.openmrs.module.dataquality-v1.0-7" author="Adebawo_art_status">
+        <addColumn tableName="dqr_meta">
+            <column name="art_status" type="varchar(45)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="ref-dqr_last_analysis_date" author="Adebawo_otz_ref" runAlways="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM `global_property` WHERE `property` = 'dqr_last_analysis_date';
+            </sqlCheck>
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM `global_property` WHERE `property` = 'dqr_last_txcurr';
+            </sqlCheck>
+        </preConditions>
+
+        <sql>
+            DELETE FROM `global_property` WHERE (`property` = 'dqr_last_analysis_date');
+            DELETE FROM `global_property` WHERE (`property` = 'dqr_last_txcurr');
+        </sql>
+        
+    </changeSet>
+    
+    <changeSet id="ref-create_conceptval_fn_notexist" author="from_DQR">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) 
+                FROM information_schema.ROUTINES 
+                WHERE ROUTINE_SCHEMA = DATABASE() 
+                  AND ROUTINE_NAME = 'getconceptval' 
+                  AND ROUTINE_TYPE = 'FUNCTION';
+            </sqlCheck>
+        </preConditions>
+        <sql splitStatements="false" endDelimiter="$$">
+            DELIMITER $$
+            CREATE FUNCTION `getconceptval`(`obsid` INT, `cid` INT, `pid` INT) 
+            RETURNS decimal(10,0)
+            BEGIN
+                DECLARE value_num INT;
+                SELECT DISTINCT obs.value_numeric INTO value_num
+                FROM obs
+                WHERE obs.obs_group_id IS NOT NULL
+                  AND obs.obs_group_id = obsid
+                  AND obs.concept_id = cid
+                  AND obs.person_id = pid
+                  AND obs.voided = 0
+                  AND obs.value_numeric IS NOT NULL
+                ORDER BY obs_id ASC
+                LIMIT 1;
+                RETURN value_num;
+            END$$
+            DELIMITER ;
+        </sql>
+    </changeSet>
+
+
+    
 </databaseChangeLog>

@@ -32,6 +32,8 @@ public class OTZPatient extends Patient {
 	
 	private String otzplusedate;
 	
+	private String art_status;
+	
 	public String getEnrollmentDate() {
 		return enrollmentDate;
 	}
@@ -110,6 +112,14 @@ public class OTZPatient extends Patient {
 	
 	public void setOtzplusedate(String otzplusedate) {
 		this.otzplusedate = otzplusedate;
+	}
+	
+	public String getArtStatus() {
+		return art_status;
+	}
+	
+	public void setArtStatus(String art_status) {
+		this.art_status = art_status;
 	}
 	
 }

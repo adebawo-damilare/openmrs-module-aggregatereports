@@ -112,7 +112,9 @@ public class Database {
 			if (con != null) {
 				con.close();
 			}
-			stmt.close();
+			if (stmt != null) {
+				stmt.close();
+			}
 			if (rs != null)
 				rs.close();
 			

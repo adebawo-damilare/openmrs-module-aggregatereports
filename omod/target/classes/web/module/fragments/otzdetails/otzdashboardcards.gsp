@@ -79,7 +79,7 @@
     <div class="row" style="width:110% !important">
         
         <div class="col-sm-12 col-md-12">
-            <h3>Proportion of  TX_CURR AYPLHIV enrolled in OTZ</h3>
+            <h3>Proportion of AYPLHIV in OTZ currently on ART</h3>
             <div id="proportionOfTxCurrInOtz" style="height:500px;"></div>
         </div>
 
@@ -683,20 +683,24 @@ var idLists = [];
        
 
 
-
+        // a quick dirty swap here, originally (txCurr:totalTxCurr,txCurrEnrolled:totalEnrolled, (totalEnrolled / totalTxCurr))
+        // swapped to (txCurr:totalEnrolled,txCurrEnrolled:totalTxCurr, (totalTxCurr / totalEnrolled))
+        // based on new requirements
+        // Not given enough time to rename the chart variables appropriately
+        // this does not affect UI/UX
          var otzTxData = new Array();
          otzTxData.push(
              {
                  quarter:lastQuarter,
-                 txCurr:totalTxCurr,
-                 txCurrEnrolled:totalEnrolled,
-                 percentage:((totalEnrolled / totalTxCurr)  * 100).toFixed(1)
+                 txCurr:totalEnrolled,
+                 txCurrEnrolled:totalTxCurr,
+                 percentage:((totalTxCurr / totalEnrolled)  * 100).toFixed(1)
               }
 
           );
           
-          legendData = [{color:"#63A6E2", title:"# of AYPLHIV currently on ART"}, {color:"#148240", title:"# of  AYPLHIV enrolled in OTZ"},
-{color:"#bf6c19", title:"% of  AYPLHIV enrolled in OTZ"} 
+          legendData = [{color:"#63A6E2", title:"# of  AYPLHIV enrolled in OTZ"}, {color:"#148240", title:"# of AYPLHIV currently on ART"},
+{color:"#bf6c19", title:"% of AYPLHIVs Currently on ART"} 
                  ]
 
 

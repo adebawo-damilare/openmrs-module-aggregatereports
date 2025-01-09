@@ -31,7 +31,7 @@ public class OTZDao {
 			
 			//stmt = Database.conn.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY, java.sql.ResultSet.CONCUR_READ_ONLY);
 			StringBuilder queryString = new StringBuilder(
-			        "SELECT patient_program.date_enrolled, dqr_meta.dob,  patient_identifier.identifier,  dqr_meta.patient_id, TIMESTAMPDIFF(YEAR, person.birthdate, patient_program.date_enrolled) AS age, TIMESTAMPDIFF(YEAR, person.birthdate, ?) AS cage,  person.gender, dqr_meta.art_start_date, person.birthdate, person_name.given_name, person_name.family_name, dqr_meta.otzplus_date as otzplusedate FROM dqr_meta \n" +
+			        "SELECT patient_program.date_enrolled, dqr_meta.dob,  patient_identifier.identifier,  dqr_meta.patient_id, TIMESTAMPDIFF(YEAR, person.birthdate, patient_program.date_enrolled) AS age, TIMESTAMPDIFF(YEAR, person.birthdate, ?) AS cage,  person.gender, dqr_meta.art_start_date, person.birthdate, person_name.given_name, person_name.family_name, dqr_meta.otzplus_date as otzplusedate, dqr_meta.art_status as art_status FROM dqr_meta \n" +
                                 " JOIN patient_identifier ON patient_identifier.patient_id=dqr_meta.patient_id AND patient_identifier.identifier_type=4 "+
                                 " JOIN person ON person.person_id=dqr_meta.patient_id\n" +
                                 " JOIN person_name ON person_name.person_id=dqr_meta.patient_id\n" +
@@ -63,6 +63,7 @@ public class OTZDao {
                             tempPatient.setFamilyName(rs.getString("family_name"));
                             tempPatient.setEnrollmentDate(rs.getString("date_enrolled"));
                             tempPatient.setOtzplusedate(rs.getString("otzplusedate"));
+                            tempPatient.setArtStatus(rs.getString("art_status"));
                             allPatients.add(tempPatient);
                         }
 			return allPatients;

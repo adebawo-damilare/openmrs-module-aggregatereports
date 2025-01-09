@@ -122,7 +122,14 @@ public class PatientDao {
 					+ "marobs.value_coded AS marital_status, occuobs.value_coded AS occupation_status, person.gender, encounter.encounter_datetime AS hivenrollment_date, "
 					+ " hivdiagnosis.obs_datetime AS hivdiagnosis_date, terminationobs.value_coded AS termination_status, "
 					+ " CONCAT(IFNULL(person_address.address1, ''), ' ', IFNULL(person_address.address2, ''), ' ', IFNULL(person_address.city_village, ''), ' ',  IFNULL(person_address.state_province, '') ) AS address, "
-					+ " otzplus.value_datetime as otzplusedate "
+					+ " otzplus.value_datetime as otzplusedate, "
+					+ "IFNULL (getcodedvalueobsid(getmaxconceptobsidwithformid(patient.patient_id,165470,13,CURDATE())),getoutcome(\n" + //
+							"getobsdatetime(getmaxconceptobsidwithformid(patient.patient_id,162240,27,CURDATE())),\n" + //
+							"getconceptval(getmaxconceptobsidwithformid(patient.patient_id,162240,27,CURDATE()),159368,patient.patient_id) ,\n" + //
+							"28,\n" + //
+							"CURDATE()\n" + //
+							"\n" + //
+							"))  as `CurrentARTStatus`"
 					+ " FROM person "
 					+ " JOIN patient ON patient.patient_id=person.person_id "
 					+ " LEFT JOIN encounter ON encounter.patient_id=person.person_id AND encounter.encounter_type=14 "
@@ -157,6 +164,7 @@ public class PatientDao {
 				tempMap.put("address", rs.getString("address"));
 				tempMap.put("termination_status", rs.getString("termination_status"));
 				tempMap.put("otzplusedate", rs.getString("otzplusedate"));
+				tempMap.put("art_status", rs.getString("CurrentARTStatus"));
 
 				allPatients.add(tempMap);
 			}
@@ -183,15 +191,15 @@ public class PatientDao {
 			// stmt = Database.conn.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY,
 			// java.sql.ResultSet.CONCUR_READ_ONLY);
 			
-			String query = "INSERT INTO dqr_meta (patient_id, art_start_date, dob, education_status, marital_status, occupation, gender, address, hiv_diagnosis_date, hiv_enrollment_date, termination_status, otzplus_date)VALUES";
+			String query = "INSERT INTO dqr_meta (patient_id, art_start_date, dob, education_status, marital_status, occupation, gender, address, hiv_diagnosis_date, hiv_enrollment_date, termination_status, otzplus_date, art_status)VALUES";
 			for (int i = 0; i < allPatientMetas.size(); i++) {
-				query += "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),";
+				query += "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?),";
 			}
 			
 			query = query.substring(0, query.length() - 1);
 			query += " ON DUPLICATE KEY UPDATE art_start_date=VALUES(art_start_date), dob=VALUES(dob), education_status=VALUES(education_status), ";
 			query += " marital_status=VALUES(marital_status), occupation=VALUES(occupation), address=VALUES(occupation), hiv_diagnosis_date=VALUES(hiv_diagnosis_date), hiv_enrollment_date=VALUES(hiv_enrollment_date),  ";
-			query += " termination_status=VALUES(termination_status), address=VALUES(address), otzplus_date=VALUES(otzplus_date) ";
+			query += " termination_status=VALUES(termination_status), address=VALUES(address), otzplus_date=VALUES(otzplus_date), art_status=VALUES(art_status) ";
 			
 			int i = 1;
 			stmt = con.prepareStatement(query);
@@ -208,6 +216,7 @@ public class PatientDao {
 				stmt.setString(i++, allPatientMetas.get(j).get("hiv_enrollment_date"));
 				stmt.setString(i++, allPatientMetas.get(j).get("termination_status"));
 				stmt.setString(i++, allPatientMetas.get(j).get("otzplusedate"));
+				stmt.setString(i++, allPatientMetas.get(j).get("art_status"));
 			}
 			// stmt.setFetchSize(200);
 			if (allPatientMetas.size() > 0)
