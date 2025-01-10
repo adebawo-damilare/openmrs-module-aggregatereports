@@ -7,6 +7,7 @@ package org.openmrs.module.dataquality.fragment.controller;
 
 import com.google.gson.Gson;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.LocalDate;
@@ -20,6 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONObject;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -6346,7 +6350,7 @@ public class OtzFragmentController {
 		
 	}
 	
-	public String getPatientsVLAccess(HttpServletRequest request) {
+	public Map<String, Object> getPatientsVLAccess(HttpServletRequest request) {
 		DateTime startDateTime = new DateTime(request.getParameter("startDate"));
 		DateTime endDateTime = new DateTime(request.getParameter("endDate"));
 		//DateTime sixMonthsAgo = endDateTime.minusMonths(6);
@@ -6696,12 +6700,21 @@ public class OtzFragmentController {
               
 		
                 String json = new Gson().toJson(data);
-		
-		return json;
+		ObjectMapper mapper = new ObjectMapper();
+        try {
+            Map<String, Object> dataToReturn =  mapper.readValue(json, Map.class);
+            dataToReturn.put("quarters", ((HashMap)dataToReturn.get("quarters")).get("myHashMap"));
+            return dataToReturn;
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+		//return data;//json;
 		
 	}
 	
-	public Map<String, Object> getPatientsVLAccess(String startDate, String endDate, String ageType) {
+	public Map<String, Object> getPatientsVLAccess2(String startDate, String endDate, String ageType) {
 		DateTime startDateTime = new DateTime(startDate);
 		DateTime endDateTime = new DateTime(endDate);
 		//DateTime sixMonthsAgo = endDateTime.minusMonths(6);

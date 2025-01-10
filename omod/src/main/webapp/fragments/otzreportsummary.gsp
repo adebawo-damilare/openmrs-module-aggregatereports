@@ -3192,7 +3192,7 @@ newContent3 = `
                 //useful here
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("dnt") }');
             }).then(function(response){
-            var data = JSON.parse(response);
+            var data = response;//JSON.parse(response);
             const monthsName = ["January","February","March","April","May","June","July","August","September","October","November","December"];
             var newDateFromStart = new Date(startDate);
             

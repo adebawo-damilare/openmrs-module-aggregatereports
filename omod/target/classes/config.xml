@@ -5,7 +5,7 @@
 	<!-- Base Module Properties -->
 	<id>dataquality</id>
 	<name>Dataquality</name>
-	<version>1.0.7</version>
+	<version>1.0.7.1</version>
 	<package>org.openmrs.module.dataquality</package>
 	<author>Lordmaul, Adebawo Damilare</author>
 	<description>

@@ -309,9 +309,9 @@ public class PatientDao {
 		Connection con = null;
 		
 		try {
-			// con = Database.connectionPool.getConnection();
 			
 			con = Database.connectionPool.getConnection();
+			
 			String queryDrop = "DROP FUNCTION IF EXISTS getoutcome2";
 			String queryCreate = "CREATE FUNCTION getoutcome2(lastpickupdate DATE,daysofarvrefill NUMERIC,ltfudays NUMERIC, enddate DATE) RETURNS text CHARSET utf8 ";
 			queryCreate += "BEGIN ";
@@ -325,27 +325,73 @@ public class PatientDao {
 			queryCreate += "SELECT IF(lastpickupdate IS NULL,\"\",IF(daysdiff >=0,\"Active\",\"InActive\")) INTO outcome; ";
 			queryCreate += "RETURN outcome; ";
 			queryCreate += "END";
+			
+			String queryDrop2 = "DROP FUNCTION IF EXISTS getcodedvalueobsid";
+			String queryCreate2 = "CREATE FUNCTION getcodedvalueobsid(obsid int) RETURNS text CHARSET utf8 ";
+			queryCreate2 += "BEGIN ";
+			queryCreate2 += "DECLARE val TEXT; ";
+			queryCreate2 += "SELECT cn.name INTO val from obs inner join concept_name cn on(obs.value_coded=cn.concept_id and cn.locale='en' and cn.locale_preferred=1) where obs.obs_id=obsid; ";
+			queryCreate2 += "RETURN val; ";
+			queryCreate2 += "END";
+			
+			String queryDrop3 = "DROP FUNCTION IF EXISTS getconceptval";
+			String queryCreate3 = "CREATE FUNCTION `getconceptval`(`obsid` INT, `cid` INT, `pid` INT) RETURNS DECIMAL(10,0) ";
+			queryCreate3 += "BEGIN ";
+			queryCreate3 += "DECLARE value_num DECIMAL(10,0); ";
+			queryCreate3 += "SELECT obs.value_numeric INTO value_num FROM obs WHERE obs.obs_group_id IS NOT NULL AND obs.obs_group_id = obsid AND obs.concept_id = cid AND obs.person_id = pid AND obs.voided = 0 AND obs.value_numeric IS NOT NULL ORDER BY obs.obs_id ASC LIMIT 1; ";
+			queryCreate3 += "RETURN value_num; ";
+			queryCreate3 += "END";
+			
+			String queryDrop4 = "DROP FUNCTION IF EXISTS getmaxconceptobsidwithformid";
+			String queryCreate4 = "CREATE FUNCTION getmaxconceptobsidwithformid(patientid int, conceptid int, formid int, cutoffdate DATE) RETURNS decimal(10,0) ";
+			queryCreate4 += "BEGIN ";
+			queryCreate4 += "DECLARE value_num INT; ";
+			queryCreate4 += "SELECT obs.obs_id into value_num from obs inner join encounter on(encounter.encounter_id=obs.encounter_id and encounter.voided=0) WHERE encounter.form_id=formid and obs.person_id=patientid and obs.concept_id=conceptid and obs.voided=0 and obs.obs_datetime<=cutoffdate ORDER BY obs.obs_datetime DESC LIMIT 1; ";
+			queryCreate4 += "RETURN value_num; ";
+			queryCreate4 += "END";
+			
+			String queryDrop5 = "DROP FUNCTION IF EXISTS getobsdatetime";
+			String queryCreate5 = "CREATE FUNCTION getobsdatetime(obsid int) RETURNS date ";
+			queryCreate5 += "BEGIN ";
+			queryCreate5 += "DECLARE val DATE; ";
+			queryCreate5 += "SELECT obs.obs_datetime INTO val from obs WHERE obs.obs_id=obsid; ";
+			queryCreate5 += "RETURN val; ";
+			queryCreate5 += "END";
+			
+			String queryDrop6 = "DROP FUNCTION IF EXISTS getoutcome";
+			String queryCreate6 = "CREATE FUNCTION getoutcome(lastpickupdate DATE, daysofarvrefill NUMERIC, ltfudays NUMERIC, enddate DATE) RETURNS text CHARSET utf8 ";
+			queryCreate6 += "BEGIN ";
+			queryCreate6 += "DECLARE ltfudate DATE; ";
+			queryCreate6 += "DECLARE ltfunumber NUMERIC; ";
+			queryCreate6 += "DECLARE daysdiff NUMERIC; ";
+			queryCreate6 += "DECLARE outcome TEXT; ";
+			queryCreate6 += "SET ltfunumber=daysofarvrefill+ltfudays; ";
+			queryCreate6 += "SELECT DATE_ADD(lastpickupdate, INTERVAL ltfunumber DAY) INTO ltfudate; ";
+			queryCreate6 += "SELECT DATEDIFF(ltfudate,enddate) INTO daysdiff; ";
+			queryCreate6 += "SELECT IF(lastpickupdate IS NULL,'',IF(daysdiff >=0,'Active','InActive')) INTO outcome; ";
+			queryCreate6 += "RETURN outcome; ";
+			queryCreate6 += "END";
+			
 			Statement stmt = con.createStatement();
 			stmt.execute(queryDrop);
 			stmt.execute(queryCreate);
+			
+			stmt.execute(queryDrop2);
+			stmt.execute(queryCreate2);
+			
+			stmt.execute(queryDrop3);
+			stmt.execute(queryCreate3);
+			
+			stmt.execute(queryDrop4);
+			stmt.execute(queryCreate4);
+			
+			stmt.execute(queryDrop5);
+			stmt.execute(queryCreate5);
+			
+			stmt.execute(queryDrop6);
+			stmt.execute(queryCreate6);
 			stmt.close();
 			
-			// stmt = Database.conn.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY,
-			// java.sql.ResultSet.CONCUR_READ_ONLY);
-			
-			// stmt = Database.conn.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY,
-			// java.sql.ResultSet.CONCUR_READ_ONLY);
-			
-			// String query = "SELECT global_property.property_value FROM global_property
-			// WHERE property=?";
-			
-			/*
-			 * int i = 1;
-			 * stmt = con.prepareStatement(query);
-			 * stmt.setString(i++, property);
-			 * rs = stmt.executeQuery();
-			 * rs.next();
-			 */
 			return property;
 			
 		}

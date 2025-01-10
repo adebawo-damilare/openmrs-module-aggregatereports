@@ -239,7 +239,7 @@ public class OtzreportsummaryFragmentController {
 		return dataMap;//new JSONObject(dataMap).toString();
 	}
 	
-	public String getAllEnrolledInOTZ(HttpServletRequest request) {
+	public Map<String, String> getAllEnrolledInOTZ(HttpServletRequest request) {
 
             if (request.getParameter("startDate") == null || 
             request.getParameter("endDate") == null ||
@@ -381,10 +381,11 @@ public class OtzreportsummaryFragmentController {
 
             
             //dataMap.put("totalAdultsTestedPositive",  adultsTestedPositive+"");
-            return new JSONObject(dataMap).toString();
+            return dataMap;
+            //return new JSONObject(dataMap).toString();
     }
 	
-	public Map<String, String> getAllEnrolledInOTZ(String startDate, String endDate, String ageType) {
+	public Map<String, String> getAllEnrolledInOTZ2(String startDate, String endDate, String ageType) {
 
             if (startDate == null || 
             endDate == null ||
@@ -692,7 +693,7 @@ public class OtzreportsummaryFragmentController {
 
     }
 	
-	public String getTotalEnrolledWithScheduledPickup6MonthsBefore(HttpServletRequest request) {
+	public Map<String, String> getTotalEnrolledWithScheduledPickup6MonthsBefore(HttpServletRequest request) {
             DateTime startDateTime = new DateTime(request.getParameter("startDate"));
             DateTime endDateTime = new DateTime(request.getParameter("endDate"));             String ageType = request.getParameter("ageType");
             DateTime sixMonthsAgo = endDateTime.minusMonths(6);
@@ -802,11 +803,11 @@ public class OtzreportsummaryFragmentController {
             dataMap.put("female15To19",  female15To19+"");
             dataMap.put("female20To24",  female20To24+""); dataMap.put("femaleabove24",  femaleabove24+"");
             //dataMap.put("totalAdultsTestedPositive",  adultsTestedPositive+"");
-            return new JSONObject(dataMap).toString();
+            return dataMap;//new JSONObject(dataMap).toString();
 
     }
 	
-	public Map<String, String> getTotalEnrolledWithScheduledPickup6MonthsBefore(String startDate, String endDate, String ageType) {
+	public Map<String, String> getTotalEnrolledWithScheduledPickup6MonthsBeforeV2(String startDate, String endDate, String ageType) {
             DateTime startDateTime = new DateTime(startDate);
             DateTime endDateTime = new DateTime(endDate);     
             DateTime sixMonthsAgo = endDateTime.minusMonths(6);
@@ -1599,7 +1600,7 @@ public class OtzreportsummaryFragmentController {
 
     }
 	
-	public String getTotalEnrolledWithVL12MonthsBeforeAndBelow200(HttpServletRequest request) {
+	public Map<String, String> getTotalEnrolledWithVL12MonthsBeforeAndBelow200(HttpServletRequest request) {
             DateTime startDateTime = new DateTime(request.getParameter("startDate"));
             DateTime endDateTime = new DateTime(request.getParameter("endDate"));             String ageType = request.getParameter("ageType");
             DateTime sixMonthsAgo = endDateTime.minusMonths(6);
@@ -1707,11 +1708,11 @@ public class OtzreportsummaryFragmentController {
             dataMap.put("female15To19",  female15To19+"");
             dataMap.put("female20To24",  female20To24+""); dataMap.put("femaleabove24",  femaleabove24+"");
             //dataMap.put("totalAdultsTestedPositive",  adultsTestedPositive+"");
-            return new JSONObject(dataMap).toString();
+            return dataMap;//new JSONObject(dataMap).toString();
 
     }
 	
-	public Map<String, String> getTotalEnrolledWithVL12MonthsBeforeAndBelow200(String startDate, String endDate, String ageType) {
+	public Map<String, String> getTotalEnrolledWithVL12MonthsBeforeAndBelow200V2(String startDate, String endDate, String ageType) {
             DateTime startDateTime = new DateTime(startDate);
             DateTime endDateTime = new DateTime(endDate);             
             DateTime sixMonthsAgo = endDateTime.minusMonths(6);
@@ -1824,7 +1825,7 @@ public class OtzreportsummaryFragmentController {
 
     }
 	
-	public String getTotalEnrolledWithVL12MonthsBeforeAndBtw200AND1000(HttpServletRequest request) {
+	public Map<String, String> getTotalEnrolledWithVL12MonthsBeforeAndBtw200AND1000(HttpServletRequest request) {
             DateTime startDateTime = new DateTime(request.getParameter("startDate"));
             DateTime endDateTime = new DateTime(request.getParameter("endDate"));             String ageType = request.getParameter("ageType");
             DateTime sixMonthsAgo = endDateTime.minusMonths(6);
@@ -1932,11 +1933,11 @@ public class OtzreportsummaryFragmentController {
             dataMap.put("female15To19",  female15To19+"");
             dataMap.put("female20To24",  female20To24+""); dataMap.put("femaleabove24",  femaleabove24+"");
             //dataMap.put("totalAdultsTestedPositive",  adultsTestedPositive+"");
-            return new JSONObject(dataMap).toString();
+            return dataMap;//new JSONObject(dataMap).toString();
 
     }
 	
-	public Map<String, String> getTotalEnrolledWithVL12MonthsBeforeAndBtw200AND1000(String startDate, String endDate, String ageType) {
+	public Map<String, String> getTotalEnrolledWithVL12MonthsBeforeAndBtw200AND1000V2(String startDate, String endDate, String ageType) {
             DateTime startDateTime = new DateTime(startDate);
             DateTime endDateTime = new DateTime(endDate);             
             DateTime sixMonthsAgo = endDateTime.minusMonths(6);
@@ -2723,7 +2724,7 @@ public class OtzreportsummaryFragmentController {
 
     }
 	
-	public String getTotalEnrolledWithVL6MonthsBeforeAndBtw200AND1000(HttpServletRequest request) {
+	public Map<String, String> getTotalEnrolledWithVL6MonthsBeforeAndBtw200AND1000(HttpServletRequest request) {
             DateTime startDateTime = new DateTime(request.getParameter("startDate"));
             DateTime endDateTime = new DateTime(request.getParameter("endDate"));             String ageType = request.getParameter("ageType");
             DateTime sixMonthsAgo = endDateTime.minusMonths(6);
@@ -2831,11 +2832,11 @@ public class OtzreportsummaryFragmentController {
             dataMap.put("female15To19",  female15To19+"");
             dataMap.put("female20To24",  female20To24+""); dataMap.put("femaleabove24",  femaleabove24+"");
             //dataMap.put("totalAdultsTestedPositive",  adultsTestedPositive+"");
-            return new JSONObject(dataMap).toString();
+            return dataMap;//new JSONObject(dataMap).toString();
 
     }
 	
-	public Map<String, String> getTotalEnrolledWithVL6MonthsBeforeAndBtw200AND1000(String startDate, String endDate, String ageType) {
+	public Map<String, String> getTotalEnrolledWithVL6MonthsBeforeAndBtw200AND1000V2(String startDate, String endDate, String ageType) {
             DateTime startDateTime = new DateTime(startDate);
             DateTime endDateTime = new DateTime(endDate);       
             DateTime sixMonthsAgo = endDateTime.minusMonths(6);
@@ -3862,7 +3863,7 @@ public class OtzreportsummaryFragmentController {
 
     }
 	
-	public String getTotalWithBaseLineVLBelow1000AndMonthZeroVlAbove200(HttpServletRequest request) {
+	public Map<String, String> getTotalWithBaseLineVLBelow1000AndMonthZeroVlAbove200(HttpServletRequest request) {
             DateTime startDateTime = new DateTime(request.getParameter("startDate"));
             DateTime endDateTime = new DateTime(request.getParameter("endDate"));             String ageType = request.getParameter("ageType");
             DateTime sixMonthsAgo = endDateTime.minusMonths(6);
@@ -3970,11 +3971,12 @@ public class OtzreportsummaryFragmentController {
             dataMap.put("female15To19",  female15To19+"");
             dataMap.put("female20To24",  female20To24+""); dataMap.put("femaleabove24",  femaleabove24+"");
             //dataMap.put("totalAdultsTestedPositive",  adultsTestedPositive+"");
-            return new JSONObject(dataMap).toString();
+            return dataMap;
+            //return new JSONObject(dataMap).toString();
 
     }
 	
-	public Map<String, String> getTotalWithBaseLineVLBelow1000AndMonthZeroVlAbove200(String startDate, String endDate, String ageType) {
+	public Map<String, String> getTotalWithBaseLineVLBelow1000AndMonthZeroVlAbove200V2(String startDate, String endDate, String ageType) {
             DateTime startDateTime = new DateTime(startDate);
             DateTime endDateTime = new DateTime(endDate);             
             DateTime sixMonthsAgo = endDateTime.minusMonths(6);
@@ -7466,7 +7468,7 @@ public class OtzreportsummaryFragmentController {
 		
 	}
 	
-	public Map<String, Object> getPatientsVLAccess(HttpServletRequest request) {
+	public String getPatientsVLAccess(HttpServletRequest request) {
 		DateTime startDateTime = new DateTime(request.getParameter("startDate"));
 		DateTime endDateTime = new DateTime(request.getParameter("endDate"));
 		//DateTime sixMonthsAgo = endDateTime.minusMonths(6);
@@ -7783,17 +7785,11 @@ public class OtzreportsummaryFragmentController {
                 data.put("quarters", quarters);
                 
               
-            Map<String, Object> dataToReturn = new HashMap<>() ;
-            try{
-                ObjectMapper objectMapper = new ObjectMapper();
-                dataToReturn = objectMapper.readValue(data.toString(), Map.class);
-            }catch(Exception e)
-            {
-
-            }
-               //String json = new Gson().toJson(data);
-		return dataToReturn;
-		//return data;
+            //Map<String, String> dataToReturn = new HashMap<>() ;
+            
+        String json = new Gson().toJson(data);
+		//return dataToReturn;
+		return json;
 		
 	}
 	
@@ -8420,24 +8416,24 @@ public class OtzreportsummaryFragmentController {
             System.out.println(startDateStr + " " + jsgroovar + " " + newDateFromStart + " " + monthYearStringg);
             
     
-            Map<String, String> totalEnrolledWithScheduledPickup6MonthsBefore = getTotalEnrolledWithScheduledPickup6MonthsBefore(startDateStr, endDateStr, ageType);
-            Map<String, String> allEnrolledInOTZ= getAllEnrolledInOTZ(startDateStr, endDateStr, ageType);
+            Map<String, String> totalEnrolledWithScheduledPickup6MonthsBefore = getTotalEnrolledWithScheduledPickup6MonthsBeforeV2(startDateStr, endDateStr, ageType);
+            Map<String, String> allEnrolledInOTZ= getAllEnrolledInOTZ2(startDateStr, endDateStr, ageType);
             Map<String, String> totalEnrolledWhoKeptScheduledPickup6MonthsBefore= getTotalEnrolledWhoKeptScheduledPickup6MonthsBefore2(startDateStr, endDateStr, ageType);
             Map<String, String> totalEnrolledWithGoodAdhScore6MonthsBefore= getTotalEnrolledWithGoodAdhScore6MonthsBefore2(startDateStr, endDateStr, ageType);
             Map<String, String> totalEnrolledWithVL12MonthsBefore= getTotalEnrolledWithVL12MonthsBefore(startDateStr, endDateStr, ageType);
-            Map<String, String> totalEnrolledWithVL12MonthsBeforeAndBelow200= getTotalEnrolledWithVL12MonthsBeforeAndBelow200(startDateStr, endDateStr, ageType);
-            Map<String, String> totalEnrolledWithVL12MonthsBeforeAndBtw200AND1000= getTotalEnrolledWithVL12MonthsBeforeAndBtw200AND1000(startDateStr, endDateStr, ageType);
+            Map<String, String> totalEnrolledWithVL12MonthsBeforeAndBelow200= getTotalEnrolledWithVL12MonthsBeforeAndBelow200V2(startDateStr, endDateStr, ageType);
+            Map<String, String> totalEnrolledWithVL12MonthsBeforeAndBtw200AND1000= getTotalEnrolledWithVL12MonthsBeforeAndBtw200AND1000V2(startDateStr, endDateStr, ageType);
             Map<String, String> totalEnrolledWithVL12MonthsBeforeAndAboveOrEqual1000= getTotalEnrolledWithVL12MonthsBeforeAndAboveOrEqual1000V2(startDateStr, endDateStr, ageType);
             Map<String, String> totalEnrolledWithVL6MonthsBefore= getTotalEnrolledWithVL6MonthsBefore(startDateStr, endDateStr, ageType);
             Map<String, String> totalEnrolledWithVL6MonthsBeforeAndBelow200= getTotalEnrolledWithVL6MonthsBeforeAndBelow200V2(startDateStr, endDateStr, ageType);
-            Map<String, String> totalEnrolledWithVL6MonthsBeforeAndBtw200AND1000= getTotalEnrolledWithVL6MonthsBeforeAndBtw200AND1000(startDateStr, endDateStr, ageType);
+            Map<String, String> totalEnrolledWithVL6MonthsBeforeAndBtw200AND1000= getTotalEnrolledWithVL6MonthsBeforeAndBtw200AND1000V2(startDateStr, endDateStr, ageType);
             Map<String, String> totalEnrolledWithVL6MonthsBeforeAndAboveOrEqual1000= getTotalEnrolledWithVL6MonthsBeforeAndAboveOrEqual1000(startDateStr, endDateStr, ageType);
             Map<String, String> totalEligibleForMonthZeroVL= getTotalEligibleForMonthZeroVL2(startDateStr, endDateStr, ageType);
             Map<String, String> totalEligibleForMonthZeroVLWithSampleCollectedAtEnrollment= getTotalEligibleForMonthZeroVLWithSampleCollectedAtEnrollment2(startDateStr, endDateStr, ageType);
             Map<String, String> totalWithBaseLineVLBelow1000AndMonthZeroVlBelow200= getTotalWithBaseLineVLBelow1000AndMonthZeroVlBelow200V2(startDateStr, endDateStr, ageType);
-            Map<String, String> totalWithBaseLineVLBelow1000AndMonthZeroVlAbove200= getTotalWithBaseLineVLBelow1000AndMonthZeroVlAbove200(startDateStr, endDateStr, ageType);
+            Map<String, String> totalWithBaseLineVLBelow1000AndMonthZeroVlAbove200= getTotalWithBaseLineVLBelow1000AndMonthZeroVlAbove200V2(startDateStr, endDateStr, ageType);
             Map<String, String> totalWithBaseLineVLBelow1000AndMonthZeroVlAbove1000= getTotalWithBaseLineVLBelow1000AndMonthZeroVlAbove1000(startDateStr, endDateStr, ageType);
-            Map<String, Object> vlAccessResults = otzFragmentController.getPatientsVLAccess(startDate, endDate, ageType);
+            Map<String, Object> vlAccessResults = otzFragmentController.getPatientsVLAccess2(startDate, endDate, ageType);
 
             
             //System.out.println("VL Access Results: " + vlAccessResults);
