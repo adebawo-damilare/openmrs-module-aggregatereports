@@ -525,7 +525,7 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
             let currentMonth = startMonth.getMonth();
             let currentYear = startMonth.getFullYear();
 
-            while (currentMonth <= endMonth.getMonth() || currentYear < endMonth.getFullYear()) {
+            while (currentYear < endMonth.getFullYear() || (currentYear === endMonth.getFullYear() && currentMonth <= endMonth.getMonth())) {
                 const startDate = new Date(currentYear, currentMonth, 1);
                 const endDate = new Date(currentYear, currentMonth + 1, 0);
                 
@@ -549,7 +549,7 @@ int year = Calendar.getInstance().get(Calendar.YEAR);
 
             const monthsData = getStartAndEndDates(beginDate, finishDate);
             //console.log("monthsData", monthsData);
-
+            
 
             // Iterate over the array using a for loop
             // for (let i = 0; i < monthsData.length; i++) {
@@ -3253,7 +3253,7 @@ newContent3 = `
                 //Export();
                 //console.log("which loop is last?")
                 if(currMonth==formattedMonthLength){
-                setTimeout(tableToCSV, 120000);    
+                setTimeout(tableToCSV, 180000);    
                 }
                 //tableToCSV();
                 return  myAjax({startDate:startDate, endDate:endDate, ageType:ageTyp}, '${ ui.actionLink("getTotalEligibleForMonthZeroVL") }');
